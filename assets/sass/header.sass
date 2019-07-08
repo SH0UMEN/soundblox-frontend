@@ -1,0 +1,231 @@
+@import "vars"
+
+header
+  position: fixed
+  z-index: 100
+  width: 100%
+
+  .top
+    position: relative
+    margin-top: 30px
+    transition: top .5s
+    top: 0
+
+    .left, .right
+      position: absolute
+      top: 0
+
+    .left
+      left: $left-right-margin-desk
+
+    .logo
+      path
+        transition: fill .4s
+
+    .right
+      right: $left-right-margin-desk
+      display: flex
+      align-items: center
+
+      .nav-control
+        margin-right: 20px
+        height: 46px
+        width: 46px
+        border: 1px solid
+        transition: border-color .4s
+        display: none
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        cursor: pointer
+
+        .line
+          transition: background-color .2s, top .2s, transform .2s .2s, opacity .0001s .2s
+          height: 2px
+          position: relative
+          width: 24px
+          top: 0
+          transform: rotate(0deg)
+
+          &:not(:last-child)
+            margin-bottom: 4px
+
+        &.nav-opened
+          .line
+            &-1
+              top: 6px
+              transform: rotate(135deg)
+
+            &-2
+              opacity: 0
+
+            &-3
+              top: -6px
+              transform: rotate(-135deg)
+
+  .nav
+    position: absolute
+    height: 100vh
+    left: $left-right-margin-desk
+    display: flex
+    top: 0
+    font-weight: 500
+    padding-top: 140px
+    padding-bottom: 140px
+    align-items: center
+
+    .links
+      display: none
+
+    ul
+      padding-left: 0
+      list-style: none
+
+      li
+        position: relative
+
+        &:not(first-child)
+          margin-top: 10px
+
+        &:after
+          content: ""
+          display: block
+          position: absolute
+          width: 0
+          transition: width .8s
+          left: -40px
+          top: 50%
+          height: 1px
+
+        &.active
+          a
+            color: $gray-dark !important
+
+          &:after
+            width: 20px
+  
+        a
+          text-decoration: none
+          font-size: $main-text
+          transition: color .4s
+
+  &.light
+    .top
+      .logo
+        path
+          fill: $black
+
+      .right
+        .nav-control
+          border-color: $black
+
+          .line
+            background-color: $black
+
+    .nav
+      align-items: flex-start
+      ul
+        li
+          a
+            color: $black
+
+          &:after
+            background-color: $black
+
+  &.dark
+    .top
+      .logo
+        path
+          fill: $white
+
+      .right
+        .nav-control
+          border-color: $white
+
+          .line
+            background-color: $white
+
+    .nav
+      ul
+        li
+          a
+            color: $white
+
+          &:after
+            background-color: $white
+
+  @media screen and (max-width: $laptop-screen)
+    .top
+      z-index: 11
+
+      .right
+        right: $left-right-margin-laptop
+
+        .nav-control
+          display: flex
+
+      .left
+        left: $left-right-margin-laptop
+
+    &.hidden
+      .top
+        top: -100px
+
+    .nav
+      z-index: 10
+      left: 0
+      padding-left: $left-right-margin-laptop
+      width: 100vw
+      background-color: rgba(0,0,0,0)
+      transition: background-color .4s, top .0001s .4s
+      top: -100vh
+      align-items: start !important
+
+      .links
+        display: block
+        position: absolute
+        bottom: 40px
+        opacity: 0
+
+        .link
+          margin-right: 20px
+
+      ul
+        display: flex
+        flex-direction: column
+        align-items: start
+        opacity: 0
+
+        li
+          padding-left: 5px
+          padding-right: 5px
+          display: inline-block
+
+          a
+            font-size: 54px
+
+          &:after
+            left: 0
+            background-color: $gray-dark !important
+            height: 5px
+            transition: width .4s
+
+          &.active
+            &:after
+              width: 100%
+
+      &.shown
+        top: 0
+        background-color: rgba(0,0,0,1)
+        transition: background-color .4s, top .001s
+
+        ul, .links
+          opacity: 1
+          transition: opacity .4s
+
+  @media screen and (max-width: $mobile-screen)
+    .nav
+      ul
+        li
+          a
+            font-size: $header-1-mob

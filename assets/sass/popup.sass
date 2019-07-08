@@ -1,0 +1,56 @@
+@import "vars"
+
+.popup
+  height: 100vh
+  width: 100vw
+  position: fixed
+  z-index: 100
+  display: flex
+  align-items: center
+  justify-content: center
+  background-color: rgba(0,0,0,.9)
+
+  .popup-content
+    display: flex
+    flex-direction: column
+    align-items: center
+    max-width: 250px
+    width: 100%
+
+    svg.ok
+      width: 96px
+      height: 96px
+
+      .path
+        stroke-dasharray: 403.185
+        stroke-dashoffset: 0
+
+    .popup-title
+      color: $white
+      font-size: 18px
+      margin-top: 30px
+      margin-bottom: 15px
+
+    .popup-text
+      color: $gray-dark
+      font-size: $main-text
+
+.popup-enter-active, .popup-leave-active
+  transition: background-color .7s
+
+.popup-enter-active
+  svg.ok
+    .path
+      animation: dash .7s ease-in forwards
+
+.popup-enter, .popup-leave-to
+  background-color: rgba(0,0,0,0)
+
+.popup-enter-to, .popup-leave
+  background-color: rgba(0,0,0,.9)
+
+@keyframes dash
+  from
+    stroke-dashoffset: 403.185
+  to
+    stroke-dashoffset: 0

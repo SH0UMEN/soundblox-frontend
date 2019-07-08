@@ -1,0 +1,27 @@
+@import "../fonts"
+@import ../vars
+
+button, a
+  padding: 13px 20px
+  text-transform: uppercase
+  color: $white
+  cursor: pointer
+  font-size: $main-text
+  font-family: $default-font
+  font-weight: bold
+  letter-spacing: 0.05em
+  transition: background-color .3s, color .3s, border .3s
+  border: 2px solid $blue-light
+  text-decoration: none
+
+  &.blue
+    background-color: $blue-light
+
+  &.light
+    background-color: $white
+    color: $blue-light
+
+  &:hover
+    border: 2px solid $blue-dark
+    background-color: $blue-dark
+    color: $white

@@ -1,0 +1,168 @@
+@import "fonts"
+@import "vars"
+
+.main-slider
+  width: 100vw
+  height: 100vh
+  overflow: hidden
+  position: relative
+
+  .main-slider-nav
+    right: 60px
+    height: 0
+    top: 50%
+    align-items: center
+    display: flex
+    position: absolute
+    z-index: 2
+    font-size: $main-text
+
+    button
+      color: $white
+      outline: none
+      padding: 0
+      border: none
+      background-color: transparent
+      cursor: pointer
+
+      &[disabled]
+        opacity: .3
+        cursor: default
+
+      &:last-child
+        margin-left: 10px
+
+  .main-slide
+    width: 100%
+    height: 100%
+    overflow: hidden
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    padding-left: 550px
+    position: absolute
+    transition: opacity 2s
+    opacity: 1
+
+    .slide-bg
+      width: 100%
+      height: 100%
+      -webkit-background-size: cover
+      background-size: cover
+      background-position: center center
+      position: absolute
+      left: 0
+      top: 0
+
+    .content
+      position: relative
+      z-index: 1
+      padding-right: 300px
+      width: 100%
+
+      .title
+        font-weight: bold
+        color: $white
+        font-size: $slider-desk
+
+      .add-content
+        position: absolute
+        bottom: -60px
+        left: 200px
+        color: $gray-dark
+        right: 50px
+
+      .slider-count
+        position: absolute
+        right: 100%
+        bottom: 100%
+        color: $white
+        font-size: $main-text
+        opacity: .3
+
+  @media screen and (max-width: $small-desktop-screen)
+    .main-slide
+      padding-left: 300px
+
+  @media screen and (max-width: $laptop-screen)
+    .main-slider-nav
+      top: -100px
+      right: 0
+      height: auto
+
+    .main-slide
+      padding-left: $left-right-margin-laptop
+      padding-right: $left-right-margin-laptop
+
+      .content
+        padding-right: $left-right-margin-laptop
+
+        .slider-count
+          right: unset
+          bottom: unset
+          left: 0
+          top: -100px
+
+        .add-content
+          bottom: -100px
+          width: 100%
+          left: 0
+          display: flex
+          justify-content: center
+
+          span
+            width: 200px
+            display: block
+            text-align: left
+
+  @media screen and (max-width: $mobile-screen)
+    .main-slide
+      .content
+        .title
+          font-size: $slider-mob
+
+
+// animation
+
+.main-slider
+  .slider-enter-active, .slider-leave-active
+    transition: opacity .8s
+
+    .slide-bg
+      transition: left .8s
+
+  .slider-enter-active
+    .content
+      transition: opacity .4s .4s
+
+  .slider-leave-active
+    .content
+      transition: opacity .4s
+
+  .slider-leave
+    .slide-bg
+      left: 0
+
+    .content
+      opacity: 1
+
+  .slider-leave-to
+    .slide-bg
+      left: -100%
+
+    .content
+      opacity: 0
+
+  .slider-enter
+    .slide-bg
+      left: 100%
+
+    .content
+      opacity: 0
+
+  .slider-enter-to
+    .slide-bg
+      left: 0
+
+    .content
+      opacity: 1

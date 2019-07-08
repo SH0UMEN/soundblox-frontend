@@ -1,0 +1,65 @@
+@import "fonts"
+@import "vars"
+@import "sections/our-products"
+
+section:not(.main-screen)
+  font-family: $default-font
+  position: relative
+  padding-left: 550px
+
+  .content
+    height: 100vh
+    overflow-y: scroll
+    padding-right: 60px
+
+  .section-title
+    position: absolute
+    bottom: 30px
+    left: 60px
+    font-size: $header-1-desk
+    font-weight: bold
+    max-width: 550px
+    display: flex
+    align-items: center
+
+  @media screen and (max-width: $small-desktop-screen)
+    padding-left: 350px
+
+    .section-title
+      font-size: $header-1-mob
+
+  @media screen and (max-width: $laptop-screen)
+    padding-left: $left-right-margin-laptop
+
+    .section-title
+      margin-top: 90px
+      font-size: $header-1-desk
+      position: relative
+      left: 0
+      bottom: 0
+
+    .content
+      padding-right: $left-right-margin-laptop
+      overflow: hidden
+      height: unset
+
+      .items
+        overflow-y: unset
+
+section.main-screen
+  .instruction
+    position: absolute
+    bottom: 80px
+    left: 518px
+    color: $white
+    display: inline-block
+    transform: rotate(90deg)
+    z-index: 11
+
+  @media screen and (max-width: $small-desktop-screen)
+    .instruction
+      left: 268px
+
+  @media screen and (max-width: $laptop-screen)
+    .instruction
+      left: -12px

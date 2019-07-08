@@ -1,0 +1,138 @@
+section.our-products
+  .content
+    padding-top: 20px
+    display: flex
+    flex-direction: column
+    -ms-overflow-style: none
+    scrollbar-width: none
+
+    &::-webkit-scrollbar
+      display: none
+
+    .filters
+      padding-right: 155px
+      display: flex
+
+      .select
+        width: 180px
+
+        &:not(:first-child)
+          margin-left: 30px
+
+    .items
+      padding-top: 80px
+
+      .item-card
+        padding: 30px 40px
+        display: flex
+        background-color: $white-dark
+        margin-bottom: 40px
+        position: relative
+
+        &:after
+          display: block
+          content: ''
+          position: absolute
+          width: 100%
+          bottom: -40px
+          background-color: white
+          left: 0
+          height: 50px
+
+        .item-image
+          width: 50%
+          display: flex
+          align-items: center
+          justify-content: center
+
+          img
+            width: 100%
+            max-width: 200px
+            height: auto
+
+        .item-content
+          width: 50%
+
+          .item-title
+            font-size: 18px
+            font-weight: bold
+
+          .item-desc
+            margin-top: 20px
+            margin-bottom: 20px
+            font-size: $main-text
+            color: $gray-dark
+            line-height: 20px
+
+          .item-props
+            display: flex
+            flex-wrap: wrap
+
+            .item-prop
+              width: 50%
+
+              &:nth-child(n+3)
+                margin-top: 15px
+
+              .item-prop-title
+                font-size: $label
+                color: $gray-dark
+
+              .item-prop-value
+                margin-top: 5px
+                color: $black
+                font-size: $main-text
+                font-weight: 500
+                display: block
+
+          .item-panel
+            margin-top: 30px
+            display: flex
+            justify-content: space-between
+            align-items: flex-end
+
+            .item-panel-tags
+              .item-panel-tag
+                font-size: $main-text
+                text-transform: uppercase
+                color: $black
+                border-bottom: 2px solid $black
+                font-weight: bold
+                padding-bottom: 10px
+                display: inline-block
+
+                &:last-child
+                  margin-left: 30px
+
+  @media screen and (max-width: $small-desktop-screen)
+    .content
+      .items
+        .item-card
+          .item-image
+            width: 35%
+            padding-left: 15px
+            padding-right: 15px
+
+          .item-content
+            width: 65%
+
+            .item-panel
+              .item-panel-tags
+                .item-panel-tag
+                  &:last-child
+                    margin-left: 10px
+
+  @media screen and (max-width: $laptop-screen)
+    .content
+      .filters
+        padding-top: 0px
+        padding-right: 0
+
+        .select
+          max-width: unset
+          width: 32%
+
+      .items
+        padding-top: 40px
+
+

@@ -1,0 +1,30 @@
+{
+  "name": "soundblox-frontend",
+  "version": "1.0.0",
+  "description": "Soundblox frontend via nuxt.js",
+  "author": "showman",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "node-sass": "^4.12.0",
+    "nuxt": "^2.0.0",
+    "nuxt-fullpage.js": "0.0.3",
+    "sass-loader": "^7.1.0",
+    "vue-multiselect": "^2.1.6",
+    "vue-perfect-scrollbar": "^0.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^4.19.1",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^4.0.0"
+  }
+}

@@ -1,0 +1,66 @@
+@import "../fonts"
+@import "../vars"
+
+button, a
+  background-color: transparent
+  border: none
+  cursor: pointer
+  text-decoration: none
+  padding: 15px 0
+  text-transform: uppercase
+  font-size: $main-text
+  font-family: $default-font
+  font-weight: bold
+  position: relative
+  outline: none
+
+  span
+    display: inline-block
+    transition: color .2s .3s, transform .2s .3s
+
+  &:after, &:before
+    display: block
+    position: absolute
+    content: ''
+    background-color: $black
+    transition: width .6s
+
+  &:after
+    height: 2px
+    width: 100%
+    bottom: 0px
+    left: 0
+
+  &:before
+    height: 100%
+    top: 0
+    left: 0
+    width: 0
+
+  &:hover
+    span
+      transform: scale(0.90)
+      color: $white
+      transition: color .2s, transform .2s
+
+    &:before
+      width: 100%
+      transition: width .6s .2s
+
+  &.light
+    color: $black
+
+    &:after, &:before
+      background-color: $black
+
+  &.dark
+    color: $white
+
+    &:after, &:before
+      background-color: $white
+
+    &:hover
+      span
+        color: $black
+
+
