@@ -1,0 +1,137 @@
+@import "../vars"
+
+section.our-references
+  .content
+    font-size: $main-text
+
+    .content-top
+      height: 46.8px
+      position: relative
+      margin-top: 10px
+
+      .ps
+        height: 100%
+        white-space: nowrap
+
+        button
+          display: inline-flex
+          align-items: center
+          height: 100%
+          border: none
+          background-color: transparent
+          font-size: $main-text
+          font-weight: 500
+          color: $black
+          outline: none
+          padding: 0
+          cursor: pointer
+
+          &.active
+            color: $gray-dark
+
+          &:not(:last-child)
+            margin-right: 20px
+
+    .content-main
+      .content-display
+        position: relative
+
+        .content-display-category
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+
+          .control-panel
+            display: flex
+            justify-content: space-between
+            margin-top: 15px
+
+            .project-counter
+              color: $gray-dark
+              width: 25%
+
+              span
+                display: block
+
+            .project-title
+              width: 25%
+              font-weight: 500
+
+            .project-desc
+              width: 40%
+              color: $gray-dark
+
+            .project-switchers
+              width: 10%
+              text-align: right
+
+              button
+                outline: none
+                border: none
+                font-weight: 500
+                background-color: transparent
+                padding: 0
+                cursor: pointer
+
+                &:last-child
+                  margin-left: 10px
+
+
+          .content-display-project
+            .swiper
+              height: 60vh
+              background-color: $black
+
+              .swiper-pagination
+                top: unset
+                bottom: 20px
+                left: 20px
+                height: 1px
+                right: 20px
+                width: unset
+                background-color: rgba(255, 255, 255, .3)
+
+                .swiper-pagination-progressbar-fill
+                  background-color: $white
+
+              .swiper-button-next, .swiper-button-prev
+                background-image: url('/img/arrow-right.svg')
+                width: 31px
+                right: 20px
+                -webkit-background-size: contain
+                background-size: contain
+
+              .swiper-button-prev
+                transform: rotate(180deg)
+                left: 20px
+
+              .swiper-slide
+                height: 100%
+                display: flex
+                align-items: center
+                justify-content: center
+                padding-top: 40px
+                padding-bottom: 40px
+                position: relative
+
+                .slide-desc
+                  top: 15px
+                  left: 20px
+                  right: 20px
+                  color: $white
+                  position: absolute
+                  font-size: $label
+
+                .slide-img
+                  max-width: 100%
+                  max-height: 100%
+
+        .category-display-enter-active, .category-display-leave-active
+          transition: opacity .3s
+
+        .category-display-enter, .category-display-leave-to
+          opacity: 0
+
+        .category-display-enter-to, .category-display-leave
+          opacity: 1

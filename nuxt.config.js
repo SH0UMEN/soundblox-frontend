@@ -22,6 +22,25 @@ module.exports = {
   */
   modules: [
     'nuxt-fullpage.js',
+    '@nuxtjs/axios',
+  ],
+
+  axios: {
+    proxy: true
+  },
+
+  proxy: {
+    '/api': 'http://noilprod-test.ru.xsph.ru/wp-admin/admin-ajax.php',
+  },
+
+  plugins: [
+    {src: '~/plugins/perfect-scrollbar.js', ssr: false},
+    {src: '~/plugins/awesome-swiper.js', ssr: false}
+  ],
+
+  css: [
+    'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.min.css',
+    'swiper/dist/css/swiper.css'
   ],
 
   build: {

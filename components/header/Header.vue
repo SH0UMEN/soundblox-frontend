@@ -20,7 +20,7 @@
       <ul>
         <li @click="navOpened = false" data-menuanchor="main" class="active"><a href="#main">Main</a></li>
         <li @click="navOpened = false" data-menuanchor="our-products"><a href="#our-products">Our products</a></li>
-        <li @click="navOpened = false" data-menuanchor=""><a href="#main">Our references</a></li>
+        <li @click="navOpened = false" data-menuanchor="our-references"><a href="#our-references">Our references</a></li>
         <li @click="navOpened = false" data-menuanchor=""><a href="#main">News</a></li>
         <li @click="navOpened = false" data-menuanchor=""><a href="#main">Customer opinion</a></li>
         <li @click="navOpened = false" data-menuanchor=""><a href="#main">Contacts</a></li>

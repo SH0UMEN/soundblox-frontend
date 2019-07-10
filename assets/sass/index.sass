@@ -1,6 +1,5 @@
 @import "fonts"
 @import "vars"
-@import "sections/our-products"
 
 section:not(.main-screen)
   font-family: $default-font
@@ -11,6 +10,21 @@ section:not(.main-screen)
     height: 100vh
     overflow-y: scroll
     padding-right: 60px
+    padding-top: 20px
+    display: flex
+    flex-direction: column
+    -ms-overflow-style: none
+    scrollbar-width: none
+
+    &::-webkit-scrollbar
+      display: none
+
+    .content-top
+      padding-right: 155px
+      min-height: 46.8px
+
+    .content-main
+      padding-top: 80px
 
   .section-title
     position: absolute
@@ -43,8 +57,13 @@ section:not(.main-screen)
       overflow: hidden
       height: unset
 
-      .items
+      .content-main
         overflow-y: unset
+        padding-top: 40px
+
+      .content-top
+        padding-top: 0px
+        padding-right: 0
 
 section.main-screen
   .instruction
@@ -58,8 +77,11 @@ section.main-screen
 
   @media screen and (max-width: $small-desktop-screen)
     .instruction
-      left: 268px
+      left: 318px
 
   @media screen and (max-width: $laptop-screen)
     .instruction
       left: -12px
+
+@import "sections/our-products"
+@import "sections/our-references"

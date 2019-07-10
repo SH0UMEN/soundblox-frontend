@@ -13,14 +13,18 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.5.4",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
     "nuxt-fullpage.js": "0.0.3",
     "sass-loader": "^7.1.0",
+    "vue-awesome-swiper": "^3.1.3",
     "vue-multiselect": "^2.1.6",
-    "vue-perfect-scrollbar": "^0.1.0"
+    "vue-perfect-scrollbar": "^0.1.0",
+    "vue2-perfect-scrollbar": "^1.2.1"
   },
   "devDependencies": {
+    "@nuxtjs/proxy": "^1.3.3",
     "babel-eslint": "^10.0.1",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",
