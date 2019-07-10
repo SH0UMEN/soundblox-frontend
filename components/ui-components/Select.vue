@@ -21,7 +21,7 @@
       return {
         selectIsOpened: false,
         value: '',
-        options: ['1', '2', '3']
+        options: ['1', '2', '3'],
       }
     },
     methods: {

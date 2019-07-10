@@ -131,13 +131,16 @@ section.our-products
                 width: 100%
 
               &-tags
-                margin-top: 20px
-
                 .item-panel-tag
+                  margin-top: 20px
+
+                  &:last-child
+                    margin-left: 0px !important
+
                   &:first-child
                     margin-right: 20px
 
-  @media screen and (max-width: $laptop-screen)
+  @media screen and (max-width: $mobile-screen)
     .content
       .content-top
         flex-wrap: wrap
@@ -148,6 +151,8 @@ section.our-products
 
       .content-main
         .item-card
+          padding-left: 25px
+          padding-right: 25px
           flex-wrap: wrap
 
           .item-image, .item-content

@@ -21,12 +21,11 @@ section:not(.main-screen)
 
     .content-top
       padding-right: 155px
-      min-height: 46.8px
 
     .content-main
       padding-top: 80px
 
-  .section-title
+  .section-title, .content-section-title
     position: absolute
     bottom: 30px
     left: 60px
@@ -35,6 +34,9 @@ section:not(.main-screen)
     max-width: 550px
     display: flex
     align-items: center
+
+  .content-section-title
+    display: none
 
   @media screen and (max-width: $small-desktop-screen)
     padding-left: 350px
@@ -46,6 +48,10 @@ section:not(.main-screen)
     padding-left: $left-right-margin-laptop
 
     .section-title
+      display: none
+
+    .content-section-title
+      display: block
       margin-top: 90px
       font-size: $header-1-desk
       position: relative
@@ -54,8 +60,6 @@ section:not(.main-screen)
 
     .content
       padding-right: $left-right-margin-laptop
-      overflow: hidden
-      height: unset
 
       .content-main
         overflow-y: unset
@@ -64,6 +68,10 @@ section:not(.main-screen)
       .content-top
         padding-top: 0px
         padding-right: 0
+
+  @media screen and (max-width: $mobile-screen)
+    .content-section-title
+      font-size: $header-1-mob
 
 section.main-screen
   .instruction

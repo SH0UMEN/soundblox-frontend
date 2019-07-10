@@ -130,8 +130,39 @@ section.our-references
         .category-display-enter-active, .category-display-leave-active
           transition: opacity .3s
 
-        .category-display-enter, .category-display-leave-to
+        .category-display-enter-to, .category-display-leave
           opacity: 0
 
-        .category-display-enter-to, .category-display-leave
-          opacity: 1
+  @media screen and (max-width: $laptop-screen)
+    .fp-tableCell
+      vertical-align: top
+
+    .content
+      .content-main
+        .content-display
+          .content-display-category
+            position: relative
+
+            .content-display-project
+              .swiper
+                height: 30vh
+
+            .control-panel
+              flex-wrap: wrap
+
+              .project-title
+                order: 3
+                width: 100%
+                margin-top: 20px
+                margin-bottom: 10px
+
+              .project-desc
+                order: 4
+                width: 100%
+
+              .project-switchers
+                order: 2
+                width: 50%
+
+              .project-counter
+                width: 50%

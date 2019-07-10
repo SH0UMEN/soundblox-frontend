@@ -8,8 +8,8 @@ header
   .top
     position: relative
     margin-top: 30px
-    transition: top .5s
     top: 0
+    transition: background-color .4s, top .5s
 
     .left, .right
       position: absolute
@@ -26,6 +26,10 @@ header
       right: $left-right-margin-desk
       display: flex
       align-items: center
+
+      .contact-button
+        svg
+          display: none
 
       .nav-control
         margin-right: 20px
@@ -111,6 +115,8 @@ header
 
   &.light
     .top
+      background-color: $white
+
       .logo
         path
           fill: $black
@@ -134,6 +140,8 @@ header
 
   &.dark
     .top
+      background-color: transparent
+
       .logo
         path
           fill: $white
@@ -156,15 +164,25 @@ header
 
   @media screen and (max-width: $laptop-screen)
     .top
+      display: flex
+      justify-content: space-between
       z-index: 11
+      margin-top: 0
+      padding-top: 10px
+      padding-bottom: 10px
 
       .right
+        position: relative
+        right: 0
         right: $left-right-margin-laptop
 
         .nav-control
           display: flex
 
       .left
+        top: 17px
+        position: relative
+        left: 0
         left: $left-right-margin-laptop
 
     &.hidden
@@ -229,3 +247,16 @@ header
         li
           a
             font-size: $header-1-mob
+
+    .top
+      .right
+        .contact-button
+          padding: 13px
+          display: flex
+          align-items: center
+
+          span
+            display: none
+
+          svg
+            display: inline-block

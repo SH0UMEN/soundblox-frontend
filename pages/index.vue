@@ -18,7 +18,8 @@
 
         <section class="section our-products">
           <span class="section-title">Our products</span>
-          <div class="content">
+          <perfect-scrollbar class="content">
+            <span class="content-section-title">Our products</span>
             <div class="content-top">
               <main-select class="select">Utilization</main-select>
               <main-select class="select">Acoutsic</main-select>
@@ -86,7 +87,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </perfect-scrollbar>
         </section>
 
         <!-- Section 3 -->
@@ -94,6 +95,7 @@
         <section class="section our-references">
           <span class="section-title">Our references</span>
           <div class="content">
+            <span class="content-section-title">Our references</span>
             <div class="content-top">
               <perfect-scrollbar>
                 <button v-for="(works, cat) in references.refs['Categories']" @click="references.curCategory = cat; references.curProject = 0" :key="cat" :class="{'active': references.curCategory == cat}">
@@ -103,7 +105,7 @@
             </div>
             <div class="content-main">
               <div class="content-display">
-                <transition-group name="category-display">
+                <transition-group name="category-display" mode="out-in">
                   <div v-for="cat in references.refs['Categories']" v-show="references.curCategory == cat" :key="cat" class="content-display-category">
                     <div v-for="(project, i) in references.refs['References'][references.curCategory]" v-show="references.curProject == i" :key="i" class="content-display-project">
                       <swiper class="swiper" :options="swiperOption">
@@ -195,9 +197,8 @@ export default {
         anchors: ['main', 'our-products', 'our-references'],
         menu: 'nav.nav>ul',
         onLeave: this.onLeave,
-        normalScrollElements: '.our-products .content, .our-products .content .items',
-        scrollOverflow: true,
-        afterRender: this.headerControl
+        normalScrollElements: '.our-products .content',
+        afterRender: this.headerControl,
       },
 
       // Slider
@@ -279,9 +280,15 @@ export default {
     },
     onLeave(origin, destination, direction) {
       (destination.anchor == 'main') ? (this.header.theme = 'dark') : (this.header.theme = 'light');
+
+      setTimeout(()=>{
+        if(destination.anchor != 'our-products') {
+          this.header.hide = false;
+        }
+      }, 500);
     },
     headerControl() {
-      for(let elem of document.querySelectorAll('.fp-scrollable')) {
+      for(let elem of document.querySelectorAll('.content.ps')) {
         elem.addEventListener('wheel', (e) => {
           if(e.deltaY > 0) {
             this.header.hide = true;
