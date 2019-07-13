@@ -1,6 +1,4 @@
 import Vue from 'vue'
-import AwesomeSwiper from 'vue-awesome-swiper'
+import VueAwesomeSwiper from 'vue-awesome-swiper/dist/ssr'
 
-if (process.client) {
-  Vue.use(AwesomeSwiper)
-}
+Vue.use(VueAwesomeSwiper)

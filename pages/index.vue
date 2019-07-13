@@ -6,7 +6,7 @@
       <transition name="popup">
         <popup v-if="popup.isShown" :text="popup.text" :title="popup.title"></popup>
       </transition>
-      <full-page ref="fullpage" :options="options" id="fullpage">
+      <div ref="fullpage" id="fullpage">
         <!-- Section 1 -->
 
         <section class="section main-screen">
@@ -28,7 +28,7 @@
             <div class="content-main">
               <span v-if="productLoading">Loading ...</span>
               <span v-else-if="products.products['product_list'] && products.products['product_list'].length == 0">No products found</span>
-              <div v-else v-for="product in products.products['product_list']" class="item-card">
+              <div v-else v-for="(product, p) in products.products['product_list']" :key="p" class="item-card">
                 <div class="item-image">
                   <img :src="product.acf.picture" alt="">
                 </div>
@@ -36,7 +36,7 @@
                   <span class="item-title">{{ product.post_title }}</span>
                   <p class="item-desc">{{ product.acf.description }}</p>
                   <div class="item-props">
-                    <div v-for="prop in product.acf.properties" class="item-prop">
+                    <div v-for="(prop, k) in product.acf.properties" :key="k" class="item-prop">
                       <span class="item-prop-title">{{ prop.label }}</span>
                       <span class="item-prop-value">{{ prop.value }}</span>
                     </div>
@@ -61,7 +61,7 @@
             <span class="content-section-title">Our references</span>
             <div class="content-top">
               <perfect-scrollbar>
-                <button v-for="(works, cat) in references.refs['Categories']" @click="references.curCategory = cat; references.curProject = 0" :key="cat" :class="{'active': references.curCategory == cat}">
+                <button v-for="(works, cat) in references.refs['Categories']" @click="references.curCategory = cat;references.curProject = 0" :key="cat" :class="{'active': references.curCategory == cat}">
                   {{ cat }}
                 </button>
               </perfect-scrollbar>
@@ -69,17 +69,19 @@
             <div class="content-main">
               <div class="content-display">
                 <transition-group name="category-display" mode="out-in">
-                  <div v-for="cat in references.refs['Categories']" v-show="references.curCategory == cat" :key="cat" class="content-display-category">
-                    <div v-for="(project, i) in references.refs['References'][references.curCategory]" v-show="references.curProject == i" :key="i" class="content-display-project">
-                      <swiper class="swiper" :options="swiperOption">
-                        <swiper-slide v-for="pres in project.files" class="swiper-slide">
-                          <span class="slide-desc">{{ pres.title }}</span>
-                          <img :src="pres.file" class="slide-img">
-                        </swiper-slide>
+                  <div v-for="cat in references.refs['Categories']" v-if="references.curCategory == cat" :key="cat" class="content-display-category">
+                    <div v-for="(project, i) in references.refs['References'][references.curCategory]" v-if="references.curProject == i" :key="i" class="content-display-project">
+                      <div v-swiper:mySwiper="swiperOption" class="swiper">
+                        <div class="swiper-wrapper">
+                          <div v-for="(pres, k) in project.files" :key="cat+pres+k" class="swiper-slide">
+                            <span class="slide-desc">{{ pres.title }}</span>
+                            <img :src="pres.file" class="slide-img">
+                          </div>
+                        </div>
                         <div class="swiper-pagination" slot="pagination"></div>
                         <div class="swiper-button-prev" slot="button-prev"></div>
                         <div class="swiper-button-next" slot="button-next"></div>
-                      </swiper>
+                      </div>
                     </div>
                     <div v-if="references.refs['References'][references.curCategory][references.curProject]" class="control-panel">
                       <span class="project-counter">
@@ -110,7 +112,7 @@
                 <main-button type="submit" theme="light">Subscribe</main-button>
               </div>
               <div class="row">
-                <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox>
+                <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox></no-ssr>
               </div>
             </form>
           </div>
@@ -137,7 +139,9 @@
                       <main-button type="submit" theme="light">Subscribe</main-button>
                     </div>
                     <div class="row">
-                      <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox>
+                      <no-ssr>
+                        <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox>
+                      </no-ssr>
                     </div>
                   </form>
                 </div>
@@ -145,8 +149,9 @@
             </div>
           </perfect-scrollbar>
         </section>
-      </full-page>
+      </div>
     </main>
+    <script src="libs/fullpage.min.js"></script>
   </div>
 </template>
 
@@ -209,16 +214,6 @@ export default {
         title: "",
         text: "",
         isShown: false
-      },
-
-      // Fullpage
-
-      options: {
-        anchors: ['main', 'our-products', 'our-references', 'news'],
-        menu: 'nav.nav>ul',
-        onLeave: this.onLeave,
-        normalScrollElements: '.our-products .content',
-        afterRender: this.headerControl,
       },
 
       // Slider
@@ -313,6 +308,16 @@ export default {
     });
 
     this.newsToRows();
+
+    setTimeout(()=>{
+      new fullpage('#fullpage', {
+        anchors: ['main', 'our-products', 'our-references', 'news'],
+        menu: 'nav.nav>ul',
+        normalScrollElements: '.our-products .content',
+        afterRender: this.headerControl,
+        onLeave: this.onLeave
+      })
+    }, 500);
   },
   watch: {
     isTablet() {
@@ -327,6 +332,12 @@ export default {
     }
   },
   methods: {
+    // Log
+
+    log(mes) {
+      console.log(mes)
+    },
+
     // Products
 
     filterProducts() {

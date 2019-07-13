@@ -21,7 +21,6 @@ module.exports = {
   ** Build configuration
   */
   modules: [
-    'nuxt-fullpage.js',
     '@nuxtjs/axios',
   ],
 
@@ -37,7 +36,7 @@ module.exports = {
   plugins: [
     {src: '~/plugins/perfect-scrollbar.js', ssr: false},
     {src: '~/plugins/awesome-swiper.js', ssr: false},
-    {src: '~/plugins/checkbox.js', ssr: false}
+    {src: '~/plugins/checkbox.js', ssr: false},
   ],
 
   css: [

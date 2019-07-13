@@ -62,6 +62,9 @@
       return {
         navOpened: false,
       }
+    },
+    mounted() {
+      this.$emit('load');
     }
   }
 </script>
