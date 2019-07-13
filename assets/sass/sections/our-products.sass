@@ -1,5 +1,7 @@
 section.our-products
   .content
+    padding-bottom: 40px
+
     .content-top
       min-height: auto
       display: flex
@@ -15,18 +17,10 @@ section.our-products
         padding: 30px 40px
         display: flex
         background-color: $white-dark
-        margin-bottom: 40px
         position: relative
 
-        &:after
-          display: block
-          content: ''
-          position: absolute
-          width: 100%
-          bottom: -40px
-          background-color: white
-          left: 0
-          height: 50px
+        &:not(:last-child)
+          margin-bottom: 40px
 
         .item-image
           width: 50%

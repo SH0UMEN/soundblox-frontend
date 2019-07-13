@@ -20,68 +20,31 @@
           <span class="section-title">Our products</span>
           <perfect-scrollbar class="content">
             <span class="content-section-title">Our products</span>
-            <div class="content-top">
-              <main-select class="select">Utilization</main-select>
-              <main-select class="select">Acoutsic</main-select>
-              <main-select class="select">Thickness</main-select>
+            <div class="content-top" v-if="products.products['filters']">
+              <main-select @input="filterProducts" v-model="products.filtersValues.utilization" :options="products.products['filters']['utilization']" class="select">Utilization</main-select>
+              <main-select @input="filterProducts" v-model="products.filtersValues.acoustic" :options="products.products['filters']['acoustic']" class="select">Acoutsic</main-select>
+              <main-select @input="filterProducts" v-model="products.filtersValues.thickness" :options="products.products['filters']['thickness']" class="select">Thickness</main-select>
             </div>
             <div class="content-main">
-              <div class="item-card">
+              <span v-if="productLoading">Loading ...</span>
+              <span v-else-if="products.products['product_list'] && products.products['product_list'].length == 0">No products found</span>
+              <div v-else v-for="product in products.products['product_list']" class="item-card">
                 <div class="item-image">
-                  <img src="/img/item-image.png" alt="">
+                  <img :src="product.acf.picture" alt="">
                 </div>
                 <div class="item-content">
-                  <span class="item-title">Product name</span>
-                  <p class="item-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cumque cupiditate debitis ducimus earum eligendi et maiores, minus nisi placeat quisquam, voluptate. Debitis deleniti excepturi sunt? Modi quasi rerum tempore!</p>
+                  <span class="item-title">{{ product.post_title }}</span>
+                  <p class="item-desc">{{ product.acf.description }}</p>
                   <div class="item-props">
-                    <div class="item-prop">
-                      <span class="item-prop-title">Acoustique</span>
-                      <span class="item-prop-value">RA = 54 dB / aw=0,6</span>
-                    </div>
-                    <div class="item-prop">
-                      <span class="item-prop-title">Acoustique</span>
-                      <span class="item-prop-value">RA = 54 dB / aw=0,6</span>
-                    </div>
-                    <div class="item-prop">
-                      <span class="item-prop-title">Acoustique</span>
-                      <span class="item-prop-value">RA = 54 dB / aw=0,6</span>
+                    <div v-for="prop in product.acf.properties" class="item-prop">
+                      <span class="item-prop-title">{{ prop.label }}</span>
+                      <span class="item-prop-value">{{ prop.value }}</span>
                     </div>
                   </div>
                   <div class="item-panel">
                     <main-button class="item-panel-button" theme="light">Order</main-button>
                     <div class="item-panel-tags">
-                      <span class="item-panel-tag">Technical sheet</span>
-                      <span class="item-panel-tag">Re acoustics</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-card">
-                <div class="item-image">
-                  <img src="/img/item-image.png" alt="">
-                </div>
-                <div class="item-content">
-                  <span class="item-title">Product name</span>
-                  <p class="item-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cumque cupiditate debitis ducimus earum eligendi et maiores, minus nisi placeat quisquam, voluptate. Debitis deleniti excepturi sunt? Modi quasi rerum tempore!</p>
-                  <div class="item-props">
-                    <div class="item-prop">
-                      <span class="item-prop-title">Acoustique</span>
-                      <span class="item-prop-value">RA = 54 dB / aw=0,6</span>
-                    </div>
-                    <div class="item-prop">
-                      <span class="item-prop-title">Acoustique</span>
-                      <span class="item-prop-value">RA = 54 dB / aw=0,6</span>
-                    </div>
-                    <div class="item-prop">
-                      <span class="item-prop-title">Acoustique</span>
-                      <span class="item-prop-value">RA = 54 dB / aw=0,6</span>
-                    </div>
-                  </div>
-                  <div class="item-panel">
-                    <main-button class="item-panel-button" theme="light">Order</main-button>
-                    <div class="item-panel-tags">
-                      <span class="item-panel-tag">Technical sheet</span>
-                      <span class="item-panel-tag">Re acoustics</span>
+                      <span v-for="tag in product.acf.tags" class="item-panel-tag">{{ tag.tag }}</span>
                     </div>
                   </div>
                 </div>
@@ -94,7 +57,7 @@
 
         <section class="section our-references">
           <span class="section-title">Our references</span>
-          <div class="content">
+          <perfect-scrollbar class="content">
             <span class="content-section-title">Our references</span>
             <div class="content-top">
               <perfect-scrollbar>
@@ -133,7 +96,54 @@
                 </transition-group>
               </div>
             </div>
+          </perfect-scrollbar>
+        </section>
+
+        <!-- Section 4 -->
+
+        <section class="section news">
+          <div class="section-title">
+            <span>News</span>
+            <form class="subscribe" @submit.prevent="checkSubscribe">
+              <div class="row">
+                <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Subscribe</text-input>
+                <main-button type="submit" theme="light">Subscribe</main-button>
+              </div>
+              <div class="row">
+                <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox>
+              </div>
+            </form>
           </div>
+          <perfect-scrollbar class="content">
+            <span class="content-section-title">News</span>
+            <div class="content-top">
+              <main-select @input="filterNews" v-model="curTag" :object="true" :options="news.tags" class="select">Categories</main-select>
+            </div>
+            <div class="content-main">
+              <span v-if="newsLoading">Loading ...</span>
+              <span v-else-if="news['news_list'] && news['news_list'].length == 0">News with this tag doesn't exist</span>
+              <div v-else v-for="(row, i) in news.news_rows" :key="i" class="row">
+                <div v-for="news in row" class="news">
+                  <nuxt-link :to="'posts/'+news.post_name" class="news-wrap">
+                    <span class="date">{{(new Date(news.post_date)).getDate() }}.{{(new Date(news.post_date)).getMonth()+1 }}.{{(new Date(news.post_date)).getFullYear() }}</span>
+                    <img :src="news.thumbnail" alt="">
+                    <span class="title">{{ news.post_title }}</span>
+                  </nuxt-link>
+                </div>
+                <div v-if="((i+1)%3 == 0 || i == news.news_rows.length-1) && isTablet" class="sub">
+                  <form class="subscribe" @submit.prevent="checkSubscribe">
+                    <div class="row">
+                      <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Subscribe</text-input>
+                      <main-button type="submit" theme="light">Subscribe</main-button>
+                    </div>
+                    <div class="row">
+                      <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </perfect-scrollbar>
         </section>
       </full-page>
     </main>
@@ -146,7 +156,10 @@ import MainButton from '~/components/ui-components/Button.vue'
 import AddButton from '~/components/ui-components/AddButton.vue'
 import MainSelect from '~/components/ui-components/Select.vue'
 import MainSlider from '~/components/main-slider/MainSlider.vue'
+import TextInput from '~/components/ui-components/TextInput.vue'
 import Popup from '~/components/Popup.vue'
+import axios from '@nuxtjs/axios'
+
 
 export default {
   components: {
@@ -155,10 +168,16 @@ export default {
     AddButton,
     MainSelect,
     MainSlider,
-    Popup
+    Popup,
+    TextInput,
   },
   data() {
     return {
+      // Interactive
+
+      productLoading: false,
+      newsLoading: false,
+
       // Swiper
 
       swiperOption: {
@@ -175,6 +194,7 @@ export default {
       // Common
 
       isTablet: false,
+      isMobile: false,
 
       // Header
 
@@ -194,7 +214,7 @@ export default {
       // Fullpage
 
       options: {
-        anchors: ['main', 'our-products', 'our-references'],
+        anchors: ['main', 'our-products', 'our-references', 'news'],
         menu: 'nav.nav>ul',
         onLeave: this.onLeave,
         normalScrollElements: '.our-products .content',
@@ -205,33 +225,77 @@ export default {
 
       mainSlider: {
         slides: [
-          {
-            image: "/img/slide-1.png",
-            mainText: "Excellent acoustic performance"
-          },
-          {
-            image: "/img/slide-2.png",
-            mainText: "Many architectural possibilities"
-          },
-          {
-            image: "/img/slide-3.png",
-            mainText: "Threesome"
-          },
         ]
       },
 
-      // References
-
       references: {
-        curCategory: 'All',
-        curProject: 0,
         refs: {}
       },
+
+      // Products
+
+      products: {
+        products: {}
+      },
+
+      // News
+
+      subscribe: {
+        placeholder: "Enter your email",
+        email: '',
+        error: '',
+        accept: false
+      },
+      curTag: {name: 'All', slug: ''},
+      news: {
+        tags: [],
+        news_rows: []
+      }
     }
+  },
+  asyncData({ $axios }) {
+    return $axios.get('api/?action=init').then((res)=>{
+      let result = {
+        products: {
+          products: res.data['Products'],
+          filtersValues: {
+            utilization: 'Dont matter',
+            acoustic: 'Dont matter',
+            thickness: 'Dont matter'
+          },
+        },
+        news: res.data['News'],
+        mainSlider: {
+          slides: res.data['Slides']
+        },
+        references: {
+          curCategory: 'All',
+          curProject: 0,
+          refs: res.data['References']
+        }
+      };
+
+      result.references.refs['Categories'] = Object.assign({'All': 'All'}, result.references.refs['Categories']);
+
+      let allReferences = [];
+
+      for(let category in result.references.refs['References']) {
+        allReferences = allReferences.concat(result.references.refs['References'][category]);
+      }
+      result.news = Object.assign({'news_rows': []}, result.news);
+      result.references.refs['References'] = Object.assign({'All': allReferences}, result.references.refs['References']);
+
+      return result;
+
+    });
   },
   mounted() {
     if(window.innerWidth <= 1024) {
       this.isTablet = true;
+    }
+
+    if(window.innerWidth <= 768) {
+      this.isMobile = true;
     }
 
     window.addEventListener('resize', ()=>{
@@ -240,33 +304,119 @@ export default {
       } else {
         this.isTablet = false;
       }
-    })
 
-    // Init
-
-    this.$axios.get('/api?action=get-references').then((res)=>{
-      console.log(res.data);
-      this.references.refs = Object.assign({},this.references.refs, res.data);
-      this.references.refs['Categories'] = Object.assign({'All': 'All'}, this.references.refs['Categories']);
-      this.extractAllReferences();
+      if(window.innerWidth <= 768) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
     });
+
+    this.newsToRows();
   },
   watch: {
     isTablet() {
       if(this.isTablet == true) {
-        setTimeout(this.headerControl, 1000);
+        setTimeout(this.headerControl, 1500);
       }
+
+      this.newsToRows();
+    },
+    isMobile() {
+      this.newsToRows();
     }
   },
   methods: {
-    // Our references
+    // Products
 
-    extractAllReferences() {
-      let allReferences = [];
-      for(let category in this.references.refs['References']) {
-        allReferences = allReferences.concat(this.references.refs['References'][category]);
+    filterProducts() {
+      let query = '',
+          filters = this.products.filtersValues;
+
+      this.productLoading = true;
+
+      for(let k in filters) {
+        if(filters[k] != 'Dont matter') {
+          query+='&'+k+'='+filters[k];
+        }
       }
-      this.references.refs['References'] = Object.assign({'All': allReferences}, this.references.refs['References']);
+
+      this.$axios.get('api/?action=get-products'+query).then((res)=>{
+        this.products.products['product_list'] = res.data;
+        this.productLoading = false;
+      });
+    },
+
+    // News
+
+    newsToRows() {
+      let newsRows = [],
+          newsInRow = 4,
+          curItem = 0,
+          row = [],
+          news = this.news.news_list;
+
+      if(this.isMobile) {
+        newsInRow = 1;
+      } else if(this.isTablet) {
+        newsInRow = 3;
+      }
+
+      for(let i = 0; i < news.length; i++) {
+        if(curItem != newsInRow && i < news.length - 1) {
+          row.push(news[i]);
+          curItem++;
+        } else if(i == news.length-1) {
+          if(curItem == newsInRow) {
+            newsRows.push(row);
+            row = [];
+          }
+
+          row.push(news[i]);
+          newsRows.push(row);
+        } else if(curItem == newsInRow) {
+          newsRows.push(row);
+          row = [];
+          curItem = 0;
+          row.push(news[i]);
+          curItem++;
+        }
+      }
+
+      this.news['news_rows'] = newsRows;
+    },
+
+    checkSubscribe() {
+      let emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if(!emailRegex.test(this.subscribe.email)) {
+        this.subscribe.error = "Incorrect email";
+      } else if(!this.subscribe.accept) {
+        this.subscribe.error = "Confirm your agree";
+      } else {
+        this.subscribe.error = "";
+
+        let fd = new FormData();
+        fd.append('email', this.subscribe.email);
+        fd.append('action', 'sub')
+
+        this.$axios.post('api/', fd).then(res=>{
+          if(res.data == 0) {
+            this.subscribe.error = "You're subscribed already";
+          } else {
+            this.showPopup('You have subscribed', 'Thank you for your trust. </br> We will keep you updated.');
+          }
+        });
+      }
+    },
+
+    filterNews() {
+      this.newsLoading = true;
+
+      this.$axios.get('api/?action=get-news'+((this.curTag.name!='All') ? '&tag=' + this.curTag.slug : '')).then((res)=>{
+        this.news.news_list = res.data;
+        this.newsToRows();
+        this.newsLoading = false;
+      });
     },
 
     showPopup(title, text) {

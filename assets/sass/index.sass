@@ -1,6 +1,18 @@
 @import "fonts"
 @import "vars"
 
+// main
+
+.checkbox
+  *
+    user-select: none
+
+  .m-chckbox--group
+    border-width: 1px
+    border-radius: 0px
+
+// ----
+
 section:not(.main-screen)
   font-family: $default-font
   position: relative
@@ -93,3 +105,4 @@ section.main-screen
 
 @import "sections/our-products"
 @import "sections/our-references"
+@import "sections/news"

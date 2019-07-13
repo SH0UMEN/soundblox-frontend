@@ -128,24 +128,34 @@ section.our-references
                   max-height: 100%
 
         .category-display-enter-active, .category-display-leave-active
+          position: absolute !important
           transition: opacity .3s
 
-        .category-display-enter-to, .category-display-leave
+        .category-display-enter, .category-display-leave-to
+          position: absolute !important
           opacity: 0
+
+        .category-display-enter-to, .category-display-leave
+          position: absolute !important
+          opacity: 1
 
   @media screen and (max-width: $laptop-screen)
     .fp-tableCell
       vertical-align: top
 
     .content
+      padding-bottom: 30px
+
       .content-main
+        padding-top: 15px
+
         .content-display
           .content-display-category
             position: relative
 
             .content-display-project
               .swiper
-                height: 30vh
+                height: 50vh
 
             .control-panel
               flex-wrap: wrap

@@ -3,8 +3,9 @@
       <span class="multiselect-title">
         <slot></slot>
       </span>
-      <multiselect @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="value" :show-labels="false" :options="options">
-        <template slot="singleLabel" slot-scope="{ option }">{{ option }}</template>
+      <multiselect v-if="!object" :allow-empty="false" @input="$emit('input', curValue)" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options">
+      </multiselect>
+      <multiselect v-else label="name" track-by="name" :allow-empty="false" @input="$emit('input', curValue)" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options">
       </multiselect>
     </div>
 </template>
@@ -17,11 +18,11 @@
     components: {
       Multiselect
     },
+    props: ['options', 'object', 'value'],
     data() {
       return {
         selectIsOpened: false,
-        value: '',
-        options: ['1', '2', '3'],
+        curValue: this.value
       }
     },
     methods: {

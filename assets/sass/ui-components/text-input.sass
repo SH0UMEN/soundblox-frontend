@@ -1,0 +1,39 @@
+@import '../vars'
+
+label.error
+  position: relative
+
+  input
+    border-bottom: 1px solid $red
+
+  .error
+    color: $red
+    font-size: $label
+    opacity: 1
+
+.label
+  font-size: $label
+  color: $gray-dark
+
+span.error
+  position: absolute
+  right: 0
+  top: 3px
+  opacity: 0
+  transition: opacity .4s
+
+input
+  display: block
+  border: none
+  outline: none
+  font-size: $main-text
+  padding:
+    top: 6px
+    bottom: 6px
+  border-bottom: 1px solid $black
+  width: 100%
+  tranition: color .4s
+
+  &::placeholder
+    opacity: .3
+

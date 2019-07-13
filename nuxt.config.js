@@ -30,12 +30,14 @@ module.exports = {
   },
 
   proxy: {
-    '/api': 'http://noilprod-test.ru.xsph.ru/wp-admin/admin-ajax.php',
+    '/api/': { target: 'http://noilprod-test.ru.xsph.ru/wp-admin/admin-ajax.php', pathRewrite: {'^/api/': ''} },
+    '/rest-api/': { target: 'http://noilprod-test.ru.xsph.ru/wp-json/wp/v2', pathRewrite: {'^/rest-api/': ''} },
   },
 
   plugins: [
     {src: '~/plugins/perfect-scrollbar.js', ssr: false},
-    {src: '~/plugins/awesome-swiper.js', ssr: false}
+    {src: '~/plugins/awesome-swiper.js', ssr: false},
+    {src: '~/plugins/checkbox.js', ssr: false}
   ],
 
   css: [

@@ -1,8 +1,8 @@
 <template>
-  <button @click="$emit('click')" v-if="type == 'button'" :class="theme">
+  <button @click="$emit('click')" v-if="tag == 'button'" :class="theme">
     <slot></slot>
   </button>
-  <a @click="$emit('click')" v-else-if="type == 'link'" :class="theme">
+  <a @click="$emit('click')" v-else-if="tag == 'link'" :class="theme">
     <slot></slot>
   </a>
 </template>
@@ -15,7 +15,7 @@
         default: 'blue',
         type: String
       },
-      type: {
+      tag: {
         default: 'button',
         type: String
       }

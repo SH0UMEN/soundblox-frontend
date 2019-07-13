@@ -2,15 +2,21 @@
   <div class="main-slider">
     <transition-group name="slider">
       <div class="main-slide" v-for="(slide, i) in settings.slides" v-show="curSlide == i" :key="i">
-        <div class="slide-bg" :style="{ backgroundImage: 'url('+slide.image+')' }"></div>
+        <div class="slide-bg" :style="{ backgroundImage: 'url('+slide.acf.image.url+')' }"></div>
         <div class="content">
-          <span class="title">{{ slide.mainText }}</span>
+          <span class="title">{{ slide.post_title }}</span>
           <div class="main-slider-nav">
             <button :disabled="!prevActive" @click="prevSlide">prev</button>
             <button :disabled="!nextActive" @click="nextSlide(true);">next</button>
           </div>
-          <div class="add-content">
-            <span>Some text</span>
+          <div v-if="slide.acf.content" class="add-content">
+            <span v-html="slide.acf.content"></span>
+          </div>
+          <div v-else class="add-content with-numbers">
+            <div v-for="content in slide.acf.content_with_number" class="elem">
+              <span class="label">{{ content.label }}</span>
+              <span v-html="content.number" class="number"></span>
+            </div>
           </div>
           <span class="slider-count"><span>{{ i+1 < 10 ? '0'+(i+1) : i+1 }}/{{ (slideCount < 10) ? '0'+slideCount : slideCount}}</span></span>
         </div>
@@ -35,6 +41,14 @@
         intervalID: null,
         curSlide: 0,
         slideCount: this.settings.slides.length
+      }
+    },
+    watch: {
+      settings: {
+        handler() {
+          this.slideCount = this.settings.slides.length;
+        },
+        deep: true
       }
     },
     mounted() {
@@ -98,6 +112,6 @@
   }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
   @import "../../assets/sass/main-slider"
 </style>
