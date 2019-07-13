@@ -38,6 +38,10 @@
 .popup-enter-active, .popup-leave-active
   transition: background-color .7s
 
+.popup-leave-active
+  .popup-content
+    transition: opacity .3s
+
 .popup-enter-active
   svg.ok
     .path
@@ -48,6 +52,14 @@
 
 .popup-enter-to, .popup-leave
   background-color: rgba(0,0,0,.9)
+
+.popup-leave
+  .popup-content
+    opacity: 1
+
+.popup-leave-to
+  .popup-content
+    opacity: 0
 
 @keyframes dash
   from
