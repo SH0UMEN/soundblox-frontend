@@ -1,0 +1,63 @@
+@import "../vars"
+
+.add-page
+  position: fixed
+  z-index: 100
+  height: 100%
+  width: 100%
+  background-color: rgba(0,0,0,.9)
+
+  .content
+    position: relative
+    height: 100%
+    width: 50%
+    margin-left: auto
+    background-color: $white
+
+    .back
+      text-decoration: none
+      color: $white
+      font-size: $main-text
+      position: absolute
+      top: 20px
+      left: -80px
+
+    .scroll-content
+      height: 100%
+      padding-bottom: 60px
+
+  &.add-page-enter-active
+    transition: background-color .5s
+
+    .content
+      transition: right .5s
+
+  &.add-page-enter
+    background-color: rgba(0,0,0,0)
+
+    .content
+      right: -50%
+
+  &.add-page-enter-to
+    background-color: rgba(0,0,0,.9)
+
+    .content
+      right: 0
+
+  @media screen and (max-width: $laptop-screen)
+    padding-top: 66.8px
+    z-index: 10
+
+    .content
+      width: 100%
+
+      .scroll-content
+        padding: 25px !important
+
+    &.add-page-enter
+      .content
+        right: -100%
+
+    &.add-page-enter-to
+      .content
+        right: 0

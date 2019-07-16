@@ -1,11 +1,12 @@
 <template>
   <div>
-    <app-header :hidden="header.hide" :theme="header.theme">
+    <app-header :hidden="header.hide" :theme="($route.name != 'index') ? 'light' : header.theme">
     </app-header>
     <main>
       <transition name="popup">
         <popup v-if="popup.isShown" :text="popup.text" :title="popup.title"></popup>
       </transition>
+      <nuxt-child></nuxt-child>
       <div ref="fullpage" id="fullpage">
         <!-- Section 1 -->
 
@@ -126,7 +127,7 @@
               <span v-else-if="news['news_list'] && news['news_list'].length == 0">News with this tag doesn't exist</span>
               <div v-else v-for="(row, i) in news.news_rows" :key="i" class="row">
                 <div v-for="news in row" class="news">
-                  <nuxt-link :to="'posts/'+news.post_name" class="news-wrap">
+                  <nuxt-link :to="{ name: 'index-posts-slug', params: { slug: news.post_name }}" class="news-wrap">
                     <span class="date">{{(new Date(news.post_date)).getDate() }}.{{(new Date(news.post_date)).getMonth()+1 }}.{{(new Date(news.post_date)).getFullYear() }}</span>
                     <img :src="news.thumbnail" alt="">
                     <span class="title">{{ news.post_title }}</span>
@@ -149,9 +150,60 @@
             </div>
           </perfect-scrollbar>
         </section>
+        <section class="section customer-opinion without-title">
+          <div class="section-title">
+            <span>Сustomer<br>opinion</span>
+            <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
+          </div>
+          <perfect-scrollbar class="content">
+            <span class="content-section-title">Сustomer opinion</span>
+            <div class="content-top">
+              <!-- nothing here -->
+            </div>
+            <div class="content-main">
+              <span class="title">Our partners</span>
+              <perfect-scrollbar class="partners" ref="partners">
+                <div v-for="row in partners_rows" class="row">
+                  <div v-for="(partner, i) in row" :key="i" class="partner">
+                    <img :src="partner.acf.logo" alt="">
+                  </div>
+                </div>
+              </perfect-scrollbar>
+              <span class="title">Сustomer reviews</span>
+              <div class="feedbacks">
+                <div v-for="fb in feedbacks" class="feedback">
+                  <div class="feedback-inner">
+                    <div class="feedback-title">
+                      <span class="cus-name">{{ fb.acf.name }}</span>
+                      <span class="company">{{ fb.acf.enterprise }}</span>
+                    </div>
+                    <div class="feedback-content">
+                      {{ fb.acf.message }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </perfect-scrollbar>
+        </section>
+        <section class="section contacts without-title">
+          <div class="section-title">
+            Some text here © Soundblox. All rights reserved.
+            <span class="info">Official information</span>
+            <div class="links">
+              <add-button class="link" type="link" href="#">Linkedin</add-button>
+              <add-button class="link" type="link" href="#">Facebook</add-button>
+            </div>
+          </div>
+          <div class="content">
+            <div class="content-main">
+              <span class="title">Contacts</span>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
-    <script src="libs/fullpage.min.js"></script>
+    <script src="/libs/fullpage.min.js"></script>
   </div>
 </template>
 
@@ -245,7 +297,7 @@ export default {
       news: {
         tags: [],
         news_rows: []
-      }
+      },
     }
   },
   asyncData({ $axios }) {
@@ -267,16 +319,19 @@ export default {
           curCategory: 'All',
           curProject: 0,
           refs: res.data['References']
-        }
-      };
+        },
+        feedbacks: res.data['Feedbacks'],
+        partners_all: res.data['Partners'],
+        partners_rows: []
+      },
+        allReferences = [];
 
       result.references.refs['Categories'] = Object.assign({'All': 'All'}, result.references.refs['Categories']);
-
-      let allReferences = [];
 
       for(let category in result.references.refs['References']) {
         allReferences = allReferences.concat(result.references.refs['References'][category]);
       }
+
       result.news = Object.assign({'news_rows': []}, result.news);
       result.references.refs['References'] = Object.assign({'All': allReferences}, result.references.refs['References']);
 
@@ -294,6 +349,8 @@ export default {
     }
 
     window.addEventListener('resize', ()=>{
+      this.$nextTick(this.fixHeight);
+
       if(window.innerWidth <= 1024) {
         this.isTablet = true;
       } else {
@@ -311,13 +368,15 @@ export default {
 
     setTimeout(()=>{
       new fullpage('#fullpage', {
-        anchors: ['main', 'our-products', 'our-references', 'news'],
+        anchors: ['main', 'our-products', 'our-references', 'news', 'customer-opinion', 'contacts'],
         menu: 'nav.nav>ul',
-        normalScrollElements: '.our-products .content',
+        normalScrollElements: '.our-products .content, .scroll-content',
         afterRender: this.headerControl,
         onLeave: this.onLeave
       })
     }, 500);
+    this.partnersToRows();
+    this.$nextTick(this.fixHeight);
   },
   watch: {
     isTablet() {
@@ -326,9 +385,13 @@ export default {
       }
 
       this.newsToRows();
+      this.partnersToRows();
+      this.$nextTick(this.fixHeight);
     },
     isMobile() {
       this.newsToRows();
+      this.partnersToRows();
+      this.$nextTick(this.fixHeight);
     }
   },
   methods: {
@@ -336,6 +399,45 @@ export default {
 
     log(mes) {
       console.log(mes)
+    },
+
+    // Partners
+
+    partnersToRows() {
+      let partnersInRow = 8;
+
+      if(this.isMobile) {
+        partnersInRow = 3;
+      } else if(this.isTablet) {
+        partnersInRow = 6;
+      }
+
+      if(this.partners_all.length <= partnersInRow) {
+        this.partners_rows[0] = this.partners_all;
+      } else if (this.partners_all.length <= partnersInRow*2) {
+        this.partners_rows[0] = this.partners_all.slice(0, partnersInRow);
+        this.partners_rows[1] = this.partners_all.slice(partnersInRow, this.partners_all.length);
+      } else {
+        let mid = Math.round(this.partners_all.length/2);
+        this.partners_rows[0] = this.partners_all.slice(0, mid);
+        this.partners_rows[1] = this.partners_all.slice(mid, this.partners_all.length);
+      }
+    },
+
+    fixHeight() {
+      let partners = document.querySelectorAll('.partner'),
+          height = 0;
+
+      for(let i = 0; i < partners.length; i++) {
+        let loopH = partners[i].clientWidth;
+        if(loopH > height) {
+          height = loopH;
+        }
+      }
+
+      for(let i = 0; i < partners.length; i++) {
+        partners[i].style.height = height+'px';
+      }
     },
 
     // Products
@@ -346,7 +448,7 @@ export default {
 
       this.productLoading = true;
 
-      for(let k in filters) {
+      for(let k of filters) {
         if(filters[k] != 'Dont matter') {
           query+='&'+k+'='+filters[k];
         }
@@ -414,7 +516,7 @@ export default {
           if(res.data == 0) {
             this.subscribe.error = "You're subscribed already";
           } else {
-            this.showPopup('You have subscribed', 'Thank you for your trust. </br> We will keep you updated.');
+            this.showPopup('You have subscribed', 'Thank you for your trust.</br>We will keep you updated.');
           }
         });
       }
@@ -441,6 +543,8 @@ export default {
     },
     onLeave(origin, destination, direction) {
       (destination.anchor == 'main') ? (this.header.theme = 'dark') : (this.header.theme = 'light');
+
+      console.log(this.$route);
 
       setTimeout(()=>{
         if(destination.anchor != 'our-products') {

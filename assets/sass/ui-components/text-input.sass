@@ -1,9 +1,12 @@
 @import '../vars'
 
+label
+  display: block
+
 label.error
   position: relative
 
-  input
+  input, textarea
     border-bottom: 1px solid $red
 
   .error
@@ -22,11 +25,13 @@ span.error
   opacity: 0
   transition: opacity .4s
 
-input
+input, textarea
   display: block
   border: none
   outline: none
   font-size: $main-text
+  padding-left: 0
+  resize: none
   padding:
     top: 6px
     bottom: 6px
@@ -36,4 +41,7 @@ input
 
   &::placeholder
     opacity: .3
+
+textarea
+  min-height: 70px
 

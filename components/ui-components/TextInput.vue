@@ -2,7 +2,8 @@
   <label :class="{'error': error.length > 0}">
     <span class="error">{{ error }}</span>
     <span class="label"><slot></slot></span>
-    <input @input="$emit('input', valueLocal)" v-model="valueLocal" :placeholder="placeholder" type="text">
+    <input v-if="type == 'input'" @input="$emit('input', valueLocal)" v-model="valueLocal" :placeholder="placeholder" type="text">
+    <textarea v-else-if="type == 'text-area'" @input="$emit('input', valueLocal)" v-model="valueLocal" :placeholder="placeholder"></textarea>
   </label>
 </template>
 
@@ -10,6 +11,10 @@
 export default {
 name: "TextInput",
   props: {
+    type: {
+      type: String,
+      default: "input"
+    },
     placeholder: {
       type: String,
       default: "Enter the value"

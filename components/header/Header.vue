@@ -27,8 +27,8 @@
         <li @click="navOpened = false" data-menuanchor="our-products"><a href="#our-products">Our products</a></li>
         <li @click="navOpened = false" data-menuanchor="our-references"><a href="#our-references">Our references</a></li>
         <li @click="navOpened = false" data-menuanchor="news"><a href="#news">News</a></li>
-        <li @click="navOpened = false" data-menuanchor=""><a href="#main">Customer opinion</a></li>
-        <li @click="navOpened = false" data-menuanchor=""><a href="#main">Contacts</a></li>
+        <li @click="navOpened = false" data-menuanchor="customer-opinion"><a href="#customer-opinion">Customer opinion</a></li>
+        <li @click="navOpened = false" data-menuanchor="contacts"><a href="#contacts">Contacts</a></li>
       </ul>
       <div class="links">
         <add-button class="link" type="link" theme="dark" href="#">linkedin</add-button>

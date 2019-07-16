@@ -50,6 +50,11 @@ section:not(.main-screen)
   .content-section-title
     display: none
 
+  &.without-title
+    .content
+      .content-main
+        padding-top: 125px
+
   @media screen and (max-width: $small-desktop-screen)
     padding-left: 350px
 
@@ -108,3 +113,5 @@ section.main-screen
 @import "sections/our-products"
 @import "sections/our-references"
 @import "sections/news"
+@import "sections/customer-opinion"
+@import "sections/contacts"

@@ -1,0 +1,93 @@
+@import "../vars"
+
+section.customer-opinion
+  .section-title
+    flex-direction: column
+    align-items: flex-start
+
+    .to-feedback
+      margin-top: 30px
+
+  .content
+    .content-main
+      .title
+        font-size: $header-2-desk
+        font-weight: bold
+
+      .partners
+        margin-bottom: 30px
+        margin-top: 30px
+
+        .row
+          width: 100%
+          white-space: nowrap
+          position: relative
+          margin-bottom: 1px
+
+          .partner
+            display: inline-flex
+            width: 12.5%
+            background-color: $gray-light
+            align-items: center
+            vertical-align: top
+            justify-content: center
+
+            &:not(:nth-child(8n))
+              border-right: 1px solid #F2F2F2
+
+      .feedbacks
+        margin-top: 30px
+        display: flex
+        flex-wrap: wrap
+
+        .feedback
+          width: 50%
+          font-size: $main-text
+          color: $gray-dark
+
+          &:nth-child(odd)
+            padding-right: 20px
+
+          &:nth-child(even)
+            padding-left: 20px
+
+          .feedback-inner
+            border-top: 1px solid #78818F
+            padding-top: 20px
+            padding-bottom: 30px
+
+            .feedback-title
+              display: flex
+              justify-content: space-between
+
+              .cus-name
+                color: $black
+
+              .company
+                font-size: $label
+
+            .feedback-content
+              margin-top: 20px
+
+  @media screen and (max-width: $laptop-screen)
+    .content
+      .content-main
+        .partners
+          .row
+            .partner
+              width: 16.66%
+
+  @media screen and (max-width: $mobile-screen)
+    .content
+      .content-main
+        .partners
+          .row
+            .partner
+              width: 33.33%
+
+        .feedbacks
+          .feedback
+            width: 100%
+            padding-right: 0 !important
+            padding-left: 0 !important
+
