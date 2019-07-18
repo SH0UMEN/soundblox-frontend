@@ -127,7 +127,7 @@
               <span v-else-if="news['news_list'] && news['news_list'].length == 0">News with this tag doesn't exist</span>
               <div v-else v-for="(row, i) in news.news_rows" :key="i" class="row">
                 <div v-for="news in row" class="news">
-                  <nuxt-link :to="{ name: 'index-posts-slug', params: { slug: news.post_name }}" class="news-wrap">
+                  <nuxt-link :to="{ name: 'index-posts-id', params: { id: news.ID }}" class="news-wrap">
                     <span class="date">{{(new Date(news.post_date)).getDate() }}.{{(new Date(news.post_date)).getMonth()+1 }}.{{(new Date(news.post_date)).getFullYear() }}</span>
                     <img :src="news.thumbnail" alt="">
                     <span class="title">{{ news.post_title }}</span>
@@ -713,7 +713,6 @@ export default {
 
 
         this.$axios.post('api/', fd).then(res=>{
-          console.log(res.data);
           this.showPopup('Message sent', 'Thanks for the message. <br>We will contact you shortly.');
         });
       }

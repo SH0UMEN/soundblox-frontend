@@ -41,7 +41,8 @@ module.exports = {
 
   css: [
     'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.min.css',
-    'swiper/dist/css/swiper.css'
+    'swiper/dist/css/swiper.css',
+    '~/static/libs/block-library/style.min.css'
   ],
 
   build: {
