@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header :is-tablet="isTablet" @to-contact-page="showInfo = false" :info-page="showInfo" :hidden="header.hide" :index-page="$route.name == 'index'" :theme="($route.name != 'index') ? 'light' : header.theme">
+    <app-header :links="{ facebook: settings.facebook, linkedin: settings.linkedin }" :is-tablet="isTablet" @to-contact-page="showInfo = false" :info-page="showInfo" :hidden="header.hide" :index-page="$route.name == 'index'" :theme="($route.name != 'index') ? 'light' : header.theme">
     </app-header>
     <main>
       <transition name="popup">
@@ -194,8 +194,8 @@
             Some text here © Soundblox. All rights reserved.
             <span class="info" @click="showInfo = true">Official information</span>
             <div class="links">
-              <add-button class="link" type="link" href="#">Linkedin</add-button>
-              <add-button class="link" type="link" href="#">Facebook</add-button>
+              <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
+              <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
             </div>
           </div>
           <transition-group name="contacts">
@@ -223,8 +223,8 @@
                 <span class="title">Introduction</span>
                 <span class="last">
                   This Privacy Policy (“Privacy Policy”) sets forth the privacy practices of InVisionApp Inc. and its current and future InVision Affiliates (collectively, “InVision”) for all InVision software and applications (including, without limitation, mobile software and applications) (collectively, the “Software”); the InVision websites located at <a
-                  href="www.invisionapp" target="_blank">www.invisionapp.com</a>, <a href="designbetter.co" target="_blank">designbetter.co</a>, <a
-                  href="muz.li" target="_blank">muz.li</a> and any other InVision websites or services that link to this Privacy Policy, (collectively, the “Websites”); and all other InVision products or services provided or otherwise made accessible on or through the Software or the Websites or that otherwise link to or reference this Privacy Policy. The Software, the Websites, and any other InVision products or services that link or refer to this Privacy Policy are collectively referred to as the “Service.” This Privacy Policy describes how InVision collects, discloses, stores, transfers, and uses information that could individually identify our users (“Personal Data”) in connection with our Service.
+                  href="https://www.invisionapp" target="_blank">www.invisionapp.com</a>, <a href="https://designbetter.co" target="_blank">designbetter.co</a>, <a
+                  href="https://muz.li" target="_blank">muz.li</a> and any other InVision websites or services that link to this Privacy Policy, (collectively, the “Websites”); and all other InVision products or services provided or otherwise made accessible on or through the Software or the Websites or that otherwise link to or reference this Privacy Policy. The Software, the Websites, and any other InVision products or services that link or refer to this Privacy Policy are collectively referred to as the “Service.” This Privacy Policy describes how InVision collects, discloses, stores, transfers, and uses information that could individually identify our users (“Personal Data”) in connection with our Service.
                   <br><br>
                   This Privacy Policy does not apply to the practices of third parties, as explained in more detail below. In this Privacy Policy, “we,” “us,” “our,” and other similar references mean InVision, “you” and “your” and other similar references mean any user of the Service, and “InVision Affiliates” means any parent, subsidiary, member, officer, director, employee, agent, or contractor of InVision or any entity under common control with InVision.
                   <br><br>
@@ -278,6 +278,16 @@
                   </no-ssr>
                   <main-button class="confirm" theme="light" @click="checkContactForm">Confirm</main-button>
                 </form>
+                <div class="section-title section-title-dub">
+                  <div class="left">
+                    Some text here © Soundblox. All rights reserved.
+                    <span class="info" @click="showInfo = true">Official information</span>
+                  </div>
+                  <div class="links">
+                    <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
+                    <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
+                  </div>
+                </div>
               </div>
             </perfect-scrollbar>
           </transition-group>
@@ -656,7 +666,7 @@ export default {
         this.contactFormErrors.email = "Incorrect email";
         error = true;
       } else {
-        this.contactForm.errors.email = "";
+        this.contactFormErrors.email = "";
       }
 
       if(this.contactForm.name.length == 0) {
@@ -690,16 +700,21 @@ export default {
         this.contactFormErrors.phone = "";
       }
 
-      let fd = new FormData();
-      fd.append('email', this.email);
-      fd.append('message', this.message);
-      fd.append('enterprise', this.enterprise);
-      fd.append('name', this.name);
-      fd.append('action', 'create-feedback');
-
       if(!error) {
+        let fd = new FormData();
+        fd.append('email', this.contactForm.email);
+        fd.append('message', this.contactForm.message);
+        fd.append('enterprise', this.contactForm.enterprise);
+        fd.append('name', this.contactForm.name);
+        fd.append('phone', this.contactForm.phone);
+        fd.append('action', 'send-message');
+        fd.append('product-name', this.contactForm.productName);
+        fd.append('topic', this.contactForm.topic);
+
+
         this.$axios.post('api/', fd).then(res=>{
-          this.showPopup('Feedback sent', 'Thanks for the feedback.<br>Your feedback helps us get better.');
+          console.log(res.data);
+          this.showPopup('Message sent', 'Thanks for the message. <br>We will contact you shortly.');
         });
       }
     },
