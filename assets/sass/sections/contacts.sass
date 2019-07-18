@@ -17,12 +17,122 @@ section.contacts
 
     .links
       margin-top: 40px
+      display: flex
 
       .link:last-child
         margin-left: 20px
 
   .content
+    padding-bottom: 30px
+
     .content-main
+      max-width: 720px
+
       .title
         font-size: $header-1-desk
         font-weight: bold
+
+      .contacts-list
+        display: flex
+        flex-wrap: wrap
+        font-size: $main-text
+        margin-top: 40px
+        margin-bottom: 70px
+
+        .contact
+          width: 33.33%
+          padding-left: 20px
+          padding-right: 20px
+
+          .label
+            font-weight: bold
+
+          .value
+            display: block
+            margin-top: 5px
+            color: $gray-dark
+            text-align: justify
+
+          &:first-child
+            padding-left: 0px
+
+          &:last-child
+            padding-right: 0px
+
+      .form
+        display: flex
+        flex-wrap: wrap
+
+        .col-3
+          width: 33.33%
+          padding-left: 20px
+          padding-right: 20px
+
+          &:nth-child(3n+1)
+            padding-left: 0
+
+          &:nth-child(3n)
+            padding-right: 0
+
+        .col-12
+          width: 100%
+
+        .t-input
+          margin-top: 10px
+
+        .col-3, .col-12
+          margin-top: 15px
+
+        .confirm
+          margin-top: 40px
+
+    &.info
+      .content-main
+        font-size: $main-text
+        color: $gray-dark
+        line-height: 24px
+
+        .title
+          display: block
+          color: $black
+          font-size: $header-2-desk !important
+
+          &:not(:first-child)
+            margin-top: 30px
+            margin-bottom: 30px
+
+        .lh-34
+          line-height: 34px
+          margin-top: 30px
+          margin-bottom: 30px
+
+          ul
+            padding-left: 16px
+
+        b
+          display: block
+          color: $black
+          margin-bottom: 30px
+
+  @media screen and (max-width: $laptop-screen)
+    .content
+      .content-main
+        max-width: unset
+
+      &.info
+        .content-top
+          .back-btn
+            display: none !important
+
+        .content-main
+          margin-top: 90px
+
+.contacts
+  &-leave-active, &-entet-active
+    transition: opacity .5s
+
+  &-leave-to, &-enter
+    opacity: 0
+
+  &-leave, &-enter-to
+    opacity: 1

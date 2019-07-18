@@ -1,5 +1,5 @@
 <template>
-  <button :class="theme" v-if="type == 'button'">
+  <button :class="theme" @click="$emit('click')" v-if="type == 'button'">
     <span>
       <slot></slot>
     </span>
@@ -9,6 +9,11 @@
       <slot></slot>
     </span>
   </a>
+  <nuxt-link :to="to" v-else-if="type == 'nuxt-link'" :class="theme">
+    <span>
+      <slot></slot>
+    </span>
+  </nuxt-link>
 </template>
 
 <script>
@@ -22,7 +27,8 @@
       type: {
         default: 'button',
         type: String
-      }
+      },
+      to: Object
     }
   }
 </script>

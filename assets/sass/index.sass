@@ -11,18 +11,23 @@
     border-width: 1px
     border-radius: 0px
 
+  .m-chckbox--label
+    font-size: $label
+    color: $gray-dark
+
 // ----
 
 section:not(.main-screen)
   font-family: $default-font
   position: relative
-  padding-left: 550px
+  padding-left: 530px
 
   .content
     height: 100vh
     overflow-y: scroll
     padding-right: 60px
     padding-top: 20px
+    padding-left: 20px
     display: flex
     flex-direction: column
     -ms-overflow-style: none
@@ -37,6 +42,10 @@ section:not(.main-screen)
     .content-main
       padding-top: 80px
 
+    &.without-title
+      .content-main
+        padding-top: 125px
+
   .section-title, .content-section-title
     position: absolute
     bottom: 30px
@@ -49,11 +58,6 @@ section:not(.main-screen)
 
   .content-section-title
     display: none
-
-  &.without-title
-    .content
-      .content-main
-        padding-top: 125px
 
   @media screen and (max-width: $small-desktop-screen)
     padding-left: 350px
@@ -68,7 +72,7 @@ section:not(.main-screen)
       display: none
 
     .content-section-title
-      display: block
+      display: flex
       margin-top: 90px
       font-size: $header-1-desk
       position: relative
@@ -76,6 +80,7 @@ section:not(.main-screen)
       bottom: 0
 
     .content
+      padding-left: 0
       padding-right: $left-right-margin-laptop
 
       .content-main

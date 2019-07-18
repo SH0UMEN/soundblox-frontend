@@ -3,9 +3,9 @@
       <span class="multiselect-title">
         <slot></slot>
       </span>
-      <multiselect v-if="!object" :allow-empty="false" @input="$emit('input', curValue)" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options">
+      <multiselect :preselect-first="preselectedFirst ? true : false" :placeholder="placeholder" v-if="!object" :allow-empty="false" @input="$emit('input', curValue)" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options" open-direction="bottom">
       </multiselect>
-      <multiselect v-else label="name" track-by="name" :allow-empty="false" @input="$emit('input', curValue)" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options">
+      <multiselect :preselect-first="preselectedFirst ? true : false" :placeholder="placeholder" v-else label="name" track-by="name" :allow-empty="false" @input="$emit('input', curValue)" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options" open-direction="bottom">
       </multiselect>
     </div>
 </template>
@@ -18,7 +18,7 @@
     components: {
       Multiselect
     },
-    props: ['options', 'object', 'value'],
+    props: ['options', 'object', 'value', 'placeholder', 'preselectedFirst'],
     data() {
       return {
         selectIsOpened: false,
@@ -28,6 +28,11 @@
     methods: {
       setOpened(val) {
         this.selectIsOpened = val;
+      }
+    },
+    watch: {
+      value() {
+        this.curValue = this.value;
       }
     }
   }

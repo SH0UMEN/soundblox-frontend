@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header :hidden="header.hide" :theme="($route.name != 'index') ? 'light' : header.theme">
+    <app-header :is-tablet="isTablet" @to-contact-page="showInfo = false" :info-page="showInfo" :hidden="header.hide" :index-page="$route.name == 'index'" :theme="($route.name != 'index') ? 'light' : header.theme">
     </app-header>
     <main>
       <transition name="popup">
@@ -43,7 +43,7 @@
                     </div>
                   </div>
                   <div class="item-panel">
-                    <main-button class="item-panel-button" theme="light">Order</main-button>
+                    <main-button class="item-panel-button" @click="moveTo('contacts');contactForm.productName = product.post_title" theme="light">Order</main-button>
                     <div class="item-panel-tags">
                       <span v-for="tag in product.acf.tags" class="item-panel-tag">{{ tag.tag }}</span>
                     </div>
@@ -150,13 +150,16 @@
             </div>
           </perfect-scrollbar>
         </section>
-        <section class="section customer-opinion without-title">
+        <section class="section customer-opinion">
           <div class="section-title">
             <span>Сustomer<br>opinion</span>
             <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
           </div>
-          <perfect-scrollbar class="content">
-            <span class="content-section-title">Сustomer opinion</span>
+          <perfect-scrollbar class="content without-title">
+            <div class="content-section-title">
+              <span>Сustomer opinion</span>
+              <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
+            </div>
             <div class="content-top">
               <!-- nothing here -->
             </div>
@@ -186,20 +189,98 @@
             </div>
           </perfect-scrollbar>
         </section>
-        <section class="section contacts without-title">
+        <section class="section contacts">
           <div class="section-title">
             Some text here © Soundblox. All rights reserved.
-            <span class="info">Official information</span>
+            <span class="info" @click="showInfo = true">Official information</span>
             <div class="links">
               <add-button class="link" type="link" href="#">Linkedin</add-button>
               <add-button class="link" type="link" href="#">Facebook</add-button>
             </div>
           </div>
-          <div class="content">
-            <div class="content-main">
-              <span class="title">Contacts</span>
-            </div>
-          </div>
+          <transition-group name="contacts">
+            <perfect-scrollbar :key="1" v-if="showInfo" class="content info">
+              <div class="content-top">
+                <add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>
+              </div>
+              <div class="content-main">
+                <span class="title">Official information</span>
+                <div class="lh-34">
+                  InVision commits to strong and transparent privacy practices. Our Privacy Policy explains:
+                  <ul>
+                    <li>What Personal Data we collect and why we collect it</li>
+                    <li>How we use Personal Data</li>
+                    <li>Who we share Personal Data with</li>
+                    <li>The choices we offer, including how to access, update, and remove Personal Data</li>
+                  </ul>
+                </div>
+                <b>
+                  Please read this Privacy Policy carefully. By using or accessing the Service (defined below), you acknowledge that you have read, understood, and agree to be bound to all the terms and conditions of this Privacy Policy, and the “Terms of Use” or other customer agreement between you and InVision that is applicable to the particular Service you are using or accessing (collectively, “User Agreements”).
+                  <br><br>
+                  If you do not agree to this Privacy Policy and the applicable User Agreement, please exit, and do not access or use, the Service.
+                </b>
+                We have kept this simple for your understanding, but if you’re not familiar with terms like “cookies” or “IP addresses,” feel free to contact us. Your privacy is really important to us, so whether you’re new to InVision or a long-time user, please take the time to get to know our practices. Click on any of the links below to go straight to one of the following sections:
+                <span class="title">Introduction</span>
+                <span class="last">
+                  This Privacy Policy (“Privacy Policy”) sets forth the privacy practices of InVisionApp Inc. and its current and future InVision Affiliates (collectively, “InVision”) for all InVision software and applications (including, without limitation, mobile software and applications) (collectively, the “Software”); the InVision websites located at <a
+                  href="www.invisionapp" target="_blank">www.invisionapp.com</a>, <a href="designbetter.co" target="_blank">designbetter.co</a>, <a
+                  href="muz.li" target="_blank">muz.li</a> and any other InVision websites or services that link to this Privacy Policy, (collectively, the “Websites”); and all other InVision products or services provided or otherwise made accessible on or through the Software or the Websites or that otherwise link to or reference this Privacy Policy. The Software, the Websites, and any other InVision products or services that link or refer to this Privacy Policy are collectively referred to as the “Service.” This Privacy Policy describes how InVision collects, discloses, stores, transfers, and uses information that could individually identify our users (“Personal Data”) in connection with our Service.
+                  <br><br>
+                  This Privacy Policy does not apply to the practices of third parties, as explained in more detail below. In this Privacy Policy, “we,” “us,” “our,” and other similar references mean InVision, “you” and “your” and other similar references mean any user of the Service, and “InVision Affiliates” means any parent, subsidiary, member, officer, director, employee, agent, or contractor of InVision or any entity under common control with InVision.
+                  <br><br>
+                  This policy applies (i) immediately to new users who use or access the Service on or after the Effective Date and (ii) on the Effective Date to users who use or access the Service before the Effective Date.
+                  <br><br>
+                  Please contact us if you have any questions or comments about our privacy practices. You can reach us online at privacy@invisionapp.com or by mail at the address listed in the “What If You Have Questions Regarding Your Personal Data?” section below.
+                </span>
+              </div>
+            </perfect-scrollbar>
+            <perfect-scrollbar :key="2" v-else class="content without-title">
+              <div class="content-main">
+                <span class="title">Contacts</span>
+                <div class="contacts-list">
+                  <div class="contact">
+                    <span class="label">Phone</span>
+                    <span class="value">{{ settings.phone }}</span>
+                  </div>
+                  <div class="contact">
+                    <span class="label">E-mail</span>
+                    <span class="value">{{ settings.email }}</span>
+                  </div>
+                  <div class="contact">
+                    <span class="label">Adress</span>
+                    <span class="value">{{ settings.adress }},</span>
+                  </div>
+                </div>
+                <form @submit.prevent="" class="form">
+                  <div class="col-3">
+                    <main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Topic</main-select>
+                  </div>
+                  <div class="col-3">
+                    <text-input class="t-input" v-model="contactForm.name" :error="contactFormErrors.name">Name</text-input>
+                  </div>
+                  <div class="col-3">
+                    <text-input class="t-input" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>
+                  </div>
+                  <div class="col-3">
+                    <main-select placeholder="Select product" v-model="contactForm.productName" :options="productLabels">Product name</main-select>
+                  </div>
+                  <div class="col-3">
+                    <text-input class="t-input" v-model="contactForm.email" :error="contactFormErrors.email">E-mail</text-input>
+                  </div>
+                  <div class="col-3">
+                    <text-input class="t-input" v-model="contactForm.phone" :error="contactFormErrors.phone">Telephone</text-input>
+                  </div>
+                  <div class="col-12">
+                    <text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Enter your message here">Message</text-input>
+                  </div>
+                  <no-ssr>
+                    <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept">I agree with terms and conditions</checkbox>
+                  </no-ssr>
+                  <main-button class="confirm" theme="light" @click="checkContactForm">Confirm</main-button>
+                </form>
+              </div>
+            </perfect-scrollbar>
+          </transition-group>
         </section>
       </div>
     </main>
@@ -252,6 +333,7 @@ export default {
 
       isTablet: false,
       isMobile: false,
+      emailRegex: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 
       // Header
 
@@ -298,6 +380,30 @@ export default {
         tags: [],
         news_rows: []
       },
+      // Contact
+
+      showInfo: false,
+
+      contactFormErrors: {
+        topic: '',
+        name: '',
+        enterprise: '',
+        productName: '',
+        email: '',
+        phone: '',
+        message: ''
+      },
+
+      contactForm: {
+        topic: '',
+        name: '',
+        enterprise: '',
+        productName: '',
+        email: '',
+        phone: '',
+        message: '',
+        accept: false
+      }
     }
   },
   asyncData({ $axios }) {
@@ -322,9 +428,19 @@ export default {
         },
         feedbacks: res.data['Feedbacks'],
         partners_all: res.data['Partners'],
-        partners_rows: []
+        partners_rows: [],
+        topics: res.data['Topics'],
+        productLabels: [],
+        settings: res.data['Settings']
       },
-        allReferences = [];
+        allReferences = [],
+        productLabels = [];
+
+      for(let prod of result.products.products['product_list']) {
+        productLabels.push(prod.post_title)
+      }
+
+      result['productLabels'] = productLabels;
 
       result.references.refs['Categories'] = Object.assign({'All': 'All'}, result.references.refs['Categories']);
 
@@ -500,8 +616,7 @@ export default {
     },
 
     checkSubscribe() {
-      let emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if(!emailRegex.test(this.subscribe.email)) {
+      if(!this.emailRegex.test(this.subscribe.email)) {
         this.subscribe.error = "Incorrect email";
       } else if(!this.subscribe.accept) {
         this.subscribe.error = "Confirm your agree";
@@ -532,6 +647,69 @@ export default {
       });
     },
 
+    // Contacts
+
+    checkContactForm() {
+      let error = false;
+
+      if(!this.emailRegex.test(this.contactForm.email)) {
+        this.contactFormErrors.email = "Incorrect email";
+        error = true;
+      } else {
+        this.contactForm.errors.email = "";
+      }
+
+      if(this.contactForm.name.length == 0) {
+        this.contactFormErrors.name = "This field is required";
+        error = true;
+      } else if(!this.contactForm.accept) {
+        this.contactFormErrors.name = "Confirm your agree";
+        error = true;
+      } else {
+        this.contactFormErrors.name = "";
+      }
+
+      if(this.contactForm.enterprise.length == 0) {
+        this.contactFormErrors.enterprise = "This field is required";
+        error = true;
+      } else {
+        this.contactFormErrors.enterprise = "";
+      }
+
+      if(this.contactForm.message.length == 0) {
+        this.contactFormErrors.message = "This field is required";
+        error = true;
+      } else {
+        this.contactFormErrors.message = "";
+      }
+
+      if(this.contactForm.phone.length == 0) {
+        this.contactFormErrors.phone = "This field is required";
+        error = true;
+      } else {
+        this.contactFormErrors.phone = "";
+      }
+
+      let fd = new FormData();
+      fd.append('email', this.email);
+      fd.append('message', this.message);
+      fd.append('enterprise', this.enterprise);
+      fd.append('name', this.name);
+      fd.append('action', 'create-feedback');
+
+      if(!error) {
+        this.$axios.post('api/', fd).then(res=>{
+          this.showPopup('Feedback sent', 'Thanks for the feedback.<br>Your feedback helps us get better.');
+        });
+      }
+    },
+
+    // Common
+
+    moveTo(section) {
+      fullpage_api.moveTo(section, 0);
+    },
+
     showPopup(title, text) {
       this.popup.title = title;
       this.popup.text = text;
@@ -543,8 +721,6 @@ export default {
     },
     onLeave(origin, destination, direction) {
       (destination.anchor == 'main') ? (this.header.theme = 'dark') : (this.header.theme = 'light');
-
-      console.log(this.$route);
 
       setTimeout(()=>{
         if(destination.anchor != 'our-products') {

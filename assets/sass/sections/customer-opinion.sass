@@ -71,7 +71,16 @@ section.customer-opinion
 
   @media screen and (max-width: $laptop-screen)
     .content
+      .content-section-title
+        flex-direction: column
+        align-items: flex-start
+
+        .to-feedback
+          margin-top: 50px
+
       .content-main
+        padding-top: 40px !important
+
         .partners
           .row
             .partner
@@ -79,6 +88,13 @@ section.customer-opinion
 
   @media screen and (max-width: $mobile-screen)
     .content
+      .content-section-title
+        max-width: 100%
+
+        .to-feedback
+          text-align: center
+          width: 100%
+
       .content-main
         .partners
           .row

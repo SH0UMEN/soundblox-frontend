@@ -129,16 +129,22 @@
           display: flex
           justify-content: center
 
-          span
-            width: 200px
-            display: block
-            text-align: left
+          &:not(.with-numbers)
+            span
+              width: 200px
+              display: block
+              text-align: left
 
   @media screen and (max-width: $mobile-screen)
     .main-slide
       .content
         .title
           font-size: $slider-mob
+
+        .add-content.with-numbers
+          .elem
+            .number
+              font-size: $slider-mob
 
 
 // animation
