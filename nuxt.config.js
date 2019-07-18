@@ -29,8 +29,8 @@ module.exports = {
   },
 
   proxy: {
-    '/api/': { target: 'http://noilprod-test.ru.xsph.ru/wp-admin/admin-ajax.php', pathRewrite: {'^/api/': ''} },
-    '/rest-api/': { target: 'http://noilprod-test.ru.xsph.ru/wp-json/wp/v2', pathRewrite: {'^/rest-api/': ''} },
+    '/api/': { target: 'https://noilprod-test.ru.xsph.ru/wp-admin/admin-ajax.php', pathRewrite: {'^/api/': ''} },
+    '/rest-api/': { target: 'https://noilprod-test.ru.xsph.ru/wp-json/wp/v2', pathRewrite: {'^/rest-api/': ''} },
   },
 
   plugins: [
