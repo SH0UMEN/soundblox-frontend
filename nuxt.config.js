@@ -44,22 +44,5 @@ module.exports = {
     'swiper/dist/css/swiper.css',
     '~/static/libs/block-library/style.min.css'
   ],
-
-  build: {
-    vendor: ['~/plugins/perfect-scrollbar.js']
-    /*
-    ** Run ESLint on save
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
-    */
-  }
 }
 
