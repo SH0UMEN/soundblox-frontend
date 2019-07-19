@@ -34,7 +34,7 @@ module.exports = {
   },
 
   plugins: [
-    {src: '~/plugins/perfect-scrollbar.js', ssr: false},
+    {src: '~/plugins/perfect-scrollbar.js', mode: 'client'},
     {src: '~/plugins/awesome-swiper.js', ssr: false},
     {src: '~/plugins/checkbox.js', ssr: false},
   ],
@@ -46,6 +46,7 @@ module.exports = {
   ],
 
   build: {
+    vendor: ['~/plugins/perfect-scrollbar.js']
     /*
     ** Run ESLint on save
     extend (config, { isDev, isClient }) {

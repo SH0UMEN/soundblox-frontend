@@ -31,7 +31,7 @@
               <span v-else-if="products.products['product_list'] && products.products['product_list'].length == 0">No products found</span>
               <div v-else v-for="(product, p) in products.products['product_list']" :key="p" class="item-card">
                 <div class="item-image">
-                  <img :src="product.acf.picture" alt="">
+                  <img :data-src="product.acf.picture" alt="">
                 </div>
                 <div class="item-content">
                   <span class="item-title">{{ product.post_title }}</span>
@@ -61,11 +61,13 @@
           <perfect-scrollbar class="content">
             <span class="content-section-title">Our references</span>
             <div class="content-top">
-              <perfect-scrollbar>
-                <button v-for="(works, cat) in references.refs['Categories']" @click="references.curCategory = cat;references.curProject = 0" :key="cat" :class="{'active': references.curCategory == cat}">
-                  {{ cat }}
-                </button>
-              </perfect-scrollbar>
+              <no-ssr>
+                <perfect-scrollbar>
+                  <button v-for="(works, cat) in references.refs['Categories']" @click="references.curCategory = cat;references.curProject = 0" :key="cat" :class="{'active': references.curCategory == cat}">
+                    {{ cat }}
+                  </button>
+                </perfect-scrollbar>
+              </no-ssr>
             </div>
             <div class="content-main">
               <div class="content-display">
@@ -129,7 +131,7 @@
                 <div v-for="news in row" class="news">
                   <nuxt-link :to="{ name: 'index-posts-id', params: { id: news.ID }}" class="news-wrap">
                     <span class="date">{{(new Date(news.post_date)).getDate() }}.{{(new Date(news.post_date)).getMonth()+1 }}.{{(new Date(news.post_date)).getFullYear() }}</span>
-                    <img :src="news.thumbnail" alt="">
+                    <img :data-src="news.thumbnail" alt="">
                     <span class="title">{{ news.post_title }}</span>
                   </nuxt-link>
                 </div>
@@ -168,7 +170,7 @@
               <perfect-scrollbar class="partners" ref="partners">
                 <div v-for="row in partners_rows" class="row">
                   <div v-for="(partner, i) in row" :key="i" class="partner">
-                    <img :src="partner.acf.logo" alt="">
+                    <img :data-src="partner.acf.logo" alt="">
                   </div>
                 </div>
               </perfect-scrollbar>
@@ -317,7 +319,7 @@ export default {
     MainSelect,
     MainSlider,
     Popup,
-    TextInput,
+    TextInput
   },
   data() {
     return {
@@ -498,9 +500,11 @@ export default {
         menu: 'nav.nav>ul',
         normalScrollElements: '.our-products .content, .scroll-content',
         afterRender: this.headerControl,
-        onLeave: this.onLeave
-      })
+        onLeave: this.onLeave,
+        animateAnchor: false
+      });
     }, 500);
+
     this.partnersToRows();
     this.$nextTick(this.fixHeight);
   },
