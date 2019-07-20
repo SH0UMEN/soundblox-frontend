@@ -578,7 +578,7 @@ export default {
 
       this.productLoading = true;
 
-      for(let k of filters) {
+      for(let k in filters) {
         if(filters[k] != 'Dont matter') {
           query+='&'+k+'='+filters[k];
         }
