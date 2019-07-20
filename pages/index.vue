@@ -19,7 +19,7 @@
 
         <section class="section our-products">
           <span class="section-title">Our products</span>
-          <perfect-scrollbar class="content">
+          <div class="content">
             <span class="content-section-title">Our products</span>
             <div class="content-top" v-if="products.products['filters']">
               <main-select @input="filterProducts" v-model="products.filtersValues.utilization" :options="products.products['filters']['utilization']" class="select">Utilization</main-select>
@@ -51,14 +51,14 @@
                 </div>
               </div>
             </div>
-          </perfect-scrollbar>
+          </div>
         </section>
 
         <!-- Section 3 -->
 
         <section class="section our-references">
           <span class="section-title">Our references</span>
-          <perfect-scrollbar class="content">
+          <div class="content">
             <span class="content-section-title">Our references</span>
             <div class="content-top">
               <no-ssr>
@@ -101,7 +101,7 @@
                 </transition-group>
               </div>
             </div>
-          </perfect-scrollbar>
+          </div>
         </section>
 
         <!-- Section 4 -->
@@ -119,7 +119,7 @@
               </div>
             </form>
           </div>
-          <perfect-scrollbar class="content">
+          <div class="content">
             <span class="content-section-title">News</span>
             <div class="content-top">
               <main-select @input="filterNews" v-model="curTag" :object="true" :options="news.tags" class="select">Categories</main-select>
@@ -150,14 +150,14 @@
                 </div>
               </div>
             </div>
-          </perfect-scrollbar>
+          </div>
         </section>
         <section class="section customer-opinion">
           <div class="section-title">
             <span>Сustomer<br>opinion</span>
             <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
           </div>
-          <perfect-scrollbar class="content without-title">
+          <div class="content without-title">
             <div class="content-section-title">
               <span>Сustomer opinion</span>
               <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
@@ -189,7 +189,7 @@
                 </div>
               </div>
             </div>
-          </perfect-scrollbar>
+          </div>
         </section>
         <section class="section contacts">
           <div class="section-title">
@@ -201,7 +201,7 @@
             </div>
           </div>
           <transition-group name="contacts">
-            <perfect-scrollbar :key="1" v-if="showInfo" class="content info">
+            <div :key="1" v-if="showInfo" class="content info">
               <div class="content-top">
                 <add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>
               </div>
@@ -235,8 +235,8 @@
                   Please contact us if you have any questions or comments about our privacy practices. You can reach us online at privacy@invisionapp.com or by mail at the address listed in the “What If You Have Questions Regarding Your Personal Data?” section below.
                 </span>
               </div>
-            </perfect-scrollbar>
-            <perfect-scrollbar :key="2" v-else class="content without-title">
+            </div>
+            <div :key="2" v-else class="content without-title">
               <div class="content-main">
                 <span class="title">Contacts</span>
                 <div class="contacts-list">
@@ -291,7 +291,7 @@
                   </div>
                 </div>
               </div>
-            </perfect-scrollbar>
+            </div>
           </transition-group>
         </section>
       </div>
