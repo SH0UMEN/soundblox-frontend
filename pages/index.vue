@@ -481,6 +481,7 @@ export default {
     }
 
     window.addEventListener('resize', ()=>{
+      this.vhFix();
       this.$nextTick(this.fixHeight);
 
       if(window.innerWidth <= 1024) {
@@ -514,10 +515,7 @@ export default {
 
     // Fixing vh
 
-    let vh = window.innerHeight * 0.01;
-    this.height = vh;
-
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    this.vhFix();
   },
   watch: {
     isTablet() {
@@ -739,6 +737,13 @@ export default {
 
     moveTo(section) {
       fullpage_api.moveTo(section, 0);
+    },
+
+    vhFix() {
+      let vh = window.innerHeight * 0.01;
+      this.height = vh;
+
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
     },
 
     showPopup(title, text) {
