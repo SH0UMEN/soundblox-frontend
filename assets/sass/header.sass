@@ -213,12 +213,13 @@ header
       top: -100vh
       align-items: start !important
       height: 100vh !important
+      flex-direction: column
+      justify-content: space-between
 
       .links
-        display: block
-        position: absolute
-        bottom: 40px
+        display: flex
         opacity: 0
+        margin-bottom: 30px
 
         .link
           margin-right: 20px
@@ -261,7 +262,7 @@ header
       ul
         li
           a
-            font-size: $header-1-mob
+            font-size: $header-2-mob
 
     .top
       .right
