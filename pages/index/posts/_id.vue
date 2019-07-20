@@ -18,11 +18,25 @@
     },
     asyncData({$axios, route}) {
       return $axios.get('rest-api/posts/'+route.params.id).then(res=>{
-        console.log(res.data);
         return {
           news: res.data
         }
       });
+    },
+    mounted() {
+      let lastScroll = 0,
+          elem = document.querySelector('.scroll-content'),
+          header = document.querySelector('header');
+
+      elem.addEventListener('scroll', (e) => {
+        if(elem.scrollTop > lastScroll) {
+          header.classList.add('hidden');
+        } else {
+          header.classList.remove('hidden');
+        }
+
+        lastScroll = elem.scrollTop;
+      })
     }
   }
 </script>
