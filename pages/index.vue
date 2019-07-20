@@ -19,7 +19,7 @@
         <section class="section our-products">
           <span class="section-title">Our products</span>
           <perfect-scrollbar class="content">
-            <span class="content-section-title">Our products</span>
+            <span class="content-section-title">{{ height }}</span>
             <div class="content-top" v-if="products.products['filters']">
               <main-select @input="filterProducts" v-model="products.filtersValues.utilization" :options="products.products['filters']['utilization']" class="select">Utilization</main-select>
               <main-select @input="filterProducts" v-model="products.filtersValues.acoustic" :options="products.products['filters']['acoustic']" class="select">Acoutsic</main-select>
@@ -330,6 +330,7 @@ export default {
       productLoaded: false,
       newsLoading: false,
       newsLoaded: false,
+      height: 0,
 
       // Swiper
 
@@ -514,6 +515,7 @@ export default {
     // Fixing vh
 
     let vh = window.innerHeight * 0.01;
+    this.height = vh;
 
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   },
