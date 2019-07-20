@@ -7,226 +7,227 @@
         <popup v-if="popup.isShown" :text="popup.text" :title="popup.title"></popup>
       </transition>
       <nuxt-child></nuxt-child>
-      <div ref="fullpage" id="fullpage">
-        <!-- Section 1 -->
+      <no-ssr>
+        <div ref="fullpage" id="fullpage">
+          <!-- Section 1 -->
 
-        <section class="section main-screen">
-          <span class="instruction">Scroll down</span>
-          <main-slider :settings="mainSlider"></main-slider>
-        </section>
+          <section class="section main-screen">
+            <span class="instruction">Scroll down</span>
+            <main-slider :settings="mainSlider"></main-slider>
+          </section>
 
-        <!-- Section 2 -->
+          <!-- Section 2 -->
 
-        <section class="section our-products">
-          <span class="section-title">Our products</span>
-          <perfect-scrollbar class="content">
-            <span class="content-section-title">Our products</span>
-            <div class="content-top" v-if="products.products['filters']">
-              <main-select @input="filterProducts" v-model="products.filtersValues.utilization" :options="products.products['filters']['utilization']" class="select">Utilization</main-select>
-              <main-select @input="filterProducts" v-model="products.filtersValues.acoustic" :options="products.products['filters']['acoustic']" class="select">Acoutsic</main-select>
-              <main-select @input="filterProducts" v-model="products.filtersValues.thickness" :options="products.products['filters']['thickness']" class="select">Thickness</main-select>
-            </div>
-            <div class="content-main">
-              <span v-if="productLoading">Loading ...</span>
-              <span v-else-if="products.products['product_list'] && products.products['product_list'].length == 0">No products found</span>
-              <div v-else v-for="(product, p) in products.products['product_list']" :key="p" class="item-card">
-                <div class="item-image">
-                  <img :data-src="product.acf.picture" alt="">
-                </div>
-                <div class="item-content">
-                  <span class="item-title">{{ product.post_title }}</span>
-                  <p class="item-desc">{{ product.acf.description }}</p>
-                  <div class="item-props">
-                    <div v-for="(prop, k) in product.acf.properties" :key="k" class="item-prop">
-                      <span class="item-prop-title">{{ prop.label }}</span>
-                      <span class="item-prop-value">{{ prop.value }}</span>
-                    </div>
+          <section class="section our-products">
+            <span class="section-title">Our products</span>
+            <perfect-scrollbar class="content">
+              <span class="content-section-title">Our products</span>
+              <div class="content-top" v-if="products.products['filters']">
+                <main-select @input="filterProducts" v-model="products.filtersValues.utilization" :options="products.products['filters']['utilization']" class="select">Utilization</main-select>
+                <main-select @input="filterProducts" v-model="products.filtersValues.acoustic" :options="products.products['filters']['acoustic']" class="select">Acoutsic</main-select>
+                <main-select @input="filterProducts" v-model="products.filtersValues.thickness" :options="products.products['filters']['thickness']" class="select">Thickness</main-select>
+              </div>
+              <div class="content-main">
+                <span v-if="productLoading">Loading ...</span>
+                <span v-else-if="products.products['product_list'] && products.products['product_list'].length == 0">No products found</span>
+                <div v-else v-for="(product, p) in products.products['product_list']" :key="p" class="item-card">
+                  <div class="item-image">
+                    <img :data-src="product.acf.picture" alt="">
                   </div>
-                  <div class="item-panel">
-                    <main-button class="item-panel-button" @click="moveTo('contacts');contactForm.productName = product.post_title" theme="light">Order</main-button>
-                    <div class="item-panel-tags">
-                      <span v-for="tag in product.acf.tags" class="item-panel-tag">{{ tag.tag }}</span>
+                  <div class="item-content">
+                    <span class="item-title">{{ product.post_title }}</span>
+                    <p class="item-desc">{{ product.acf.description }}</p>
+                    <div class="item-props">
+                      <div v-for="(prop, k) in product.acf.properties" :key="k" class="item-prop">
+                        <span class="item-prop-title">{{ prop.label }}</span>
+                        <span class="item-prop-value">{{ prop.value }}</span>
+                      </div>
+                    </div>
+                    <div class="item-panel">
+                      <main-button class="item-panel-button" @click="moveTo('contacts');contactForm.productName = product.post_title" theme="light">Order</main-button>
+                      <div class="item-panel-tags">
+                        <span v-for="tag in product.acf.tags" class="item-panel-tag">{{ tag.tag }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </perfect-scrollbar>
-        </section>
+            </perfect-scrollbar>
+          </section>
 
-        <!-- Section 3 -->
+          <!-- Section 3 -->
 
-        <section class="section our-references">
-          <span class="section-title">Our references</span>
-          <perfect-scrollbar class="content">
-            <span class="content-section-title">Our references</span>
-            <div class="content-top">
-              <no-ssr>
-                <perfect-scrollbar>
-                  <button v-for="(works, cat) in references.refs['Categories']" @click="references.curCategory = cat;references.curProject = 0" :key="cat" :class="{'active': references.curCategory == cat}">
-                    {{ cat }}
-                  </button>
-                </perfect-scrollbar>
-              </no-ssr>
-            </div>
-            <div class="content-main">
-              <div class="content-display">
-                <transition-group name="category-display" mode="out-in">
-                  <div v-for="cat in references.refs['Categories']" v-if="references.curCategory == cat" :key="cat" class="content-display-category">
-                    <div v-for="(project, i) in references.refs['References'][references.curCategory]" v-if="references.curProject == i" :key="i" class="content-display-project">
-                      <div v-swiper:mySwiper="swiperOption" class="swiper">
-                        <div class="swiper-wrapper">
-                          <div v-for="(pres, k) in project.files" :key="cat+pres+k" class="swiper-slide">
-                            <span class="slide-desc">{{ pres.title }}</span>
-                            <img :src="pres.file" class="slide-img">
+          <section class="section our-references">
+            <span class="section-title">Our references</span>
+            <perfect-scrollbar class="content">
+              <span class="content-section-title">Our references</span>
+              <div class="content-top">
+                <no-ssr>
+                  <perfect-scrollbar>
+                    <button v-for="(works, cat) in references.refs['Categories']" @click="references.curCategory = cat;references.curProject = 0" :key="cat" :class="{'active': references.curCategory == cat}">
+                      {{ cat }}
+                    </button>
+                  </perfect-scrollbar>
+                </no-ssr>
+              </div>
+              <div class="content-main">
+                <div class="content-display">
+                  <transition-group name="category-display" mode="out-in">
+                    <div v-for="cat in references.refs['Categories']" v-if="references.curCategory == cat" :key="cat" class="content-display-category">
+                      <div v-for="(project, i) in references.refs['References'][references.curCategory]" v-if="references.curProject == i" :key="i" class="content-display-project">
+                        <div v-swiper:mySwiper="swiperOption" class="swiper">
+                          <div class="swiper-wrapper">
+                            <div v-for="(pres, k) in project.files" :key="cat+pres+k" class="swiper-slide">
+                              <span class="slide-desc">{{ pres.title }}</span>
+                              <img :src="pres.file" class="slide-img">
+                            </div>
                           </div>
+                          <div class="swiper-pagination" slot="pagination"></div>
+                          <div class="swiper-button-prev" slot="button-prev"></div>
+                          <div class="swiper-button-next" slot="button-next"></div>
                         </div>
-                        <div class="swiper-pagination" slot="pagination"></div>
-                        <div class="swiper-button-prev" slot="button-prev"></div>
-                        <div class="swiper-button-next" slot="button-next"></div>
                       </div>
-                    </div>
-                    <div v-if="references.refs['References'][references.curCategory][references.curProject]" class="control-panel">
+                      <div v-if="references.refs['References'][references.curCategory][references.curProject]" class="control-panel">
                       <span class="project-counter">
                         <span class="pr">Projects</span>{{ references.curProject+1 }}/{{ references.refs['References'][references.curCategory].length }}
                       </span>
-                      <span class="project-title">{{ references.refs['References'][references.curCategory][references.curProject].title }}</span>
-                      <span class="project-desc">{{ references.refs['References'][references.curCategory][references.curProject].description }}</span>
-                      <div class="project-switchers">
-                        <button @click="(references.curProject == 0) ? (references.curProject=references.refs['References'][references.curCategory].length-1) : (references.curProject--)">Prev</button>
-                        <button @click="(references.curProject == references.refs['References'][references.curCategory].length-1) ? (references.curProject=0) : (references.curProject++)">Next</button>
+                        <span class="project-title">{{ references.refs['References'][references.curCategory][references.curProject].title }}</span>
+                        <span class="project-desc">{{ references.refs['References'][references.curCategory][references.curProject].description }}</span>
+                        <div class="project-switchers">
+                          <button @click="(references.curProject == 0) ? (references.curProject=references.refs['References'][references.curCategory].length-1) : (references.curProject--)">Prev</button>
+                          <button @click="(references.curProject == references.refs['References'][references.curCategory].length-1) ? (references.curProject=0) : (references.curProject++)">Next</button>
+                        </div>
+                      </div>
+                    </div>
+                  </transition-group>
+                </div>
+              </div>
+            </perfect-scrollbar>
+          </section>
+
+          <!-- Section 4 -->
+
+          <section class="section news">
+            <div class="section-title">
+              <span>News</span>
+              <form class="subscribe" @submit.prevent="checkSubscribe">
+                <div class="row">
+                  <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Subscribe</text-input>
+                  <main-button type="submit" theme="light">Subscribe</main-button>
+                </div>
+                <div class="row">
+                  <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox></no-ssr>
+                </div>
+              </form>
+            </div>
+            <perfect-scrollbar class="content">
+              <span class="content-section-title">News</span>
+              <div class="content-top">
+                <main-select @input="filterNews" v-model="curTag" :object="true" :options="news.tags" class="select">Categories</main-select>
+              </div>
+              <div class="content-main">
+                <span v-if="newsLoading">Loading ...</span>
+                <span v-else-if="news['news_list'] && news['news_list'].length == 0">News with this tag doesn't exist</span>
+                <div v-else v-for="(row, i) in news.news_rows" :key="i" class="row">
+                  <div v-for="news in row" class="news">
+                    <nuxt-link :to="{ name: 'index-posts-id', params: { id: news.ID }}" class="news-wrap">
+                      <span class="date">{{(new Date(news.post_date)).getDate() }}.{{(new Date(news.post_date)).getMonth()+1 }}.{{(new Date(news.post_date)).getFullYear() }}</span>
+                      <img :data-src="news.thumbnail" alt="">
+                      <span class="title">{{ news.post_title }}</span>
+                    </nuxt-link>
+                  </div>
+                  <div v-if="((i+1)%3 == 0 || i == news.news_rows.length-1) && isTablet" class="sub">
+                    <form class="subscribe" @submit.prevent="checkSubscribe">
+                      <div class="row">
+                        <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Subscribe</text-input>
+                        <main-button type="submit" theme="light">Subscribe</main-button>
+                      </div>
+                      <div class="row">
+                        <no-ssr>
+                          <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox>
+                        </no-ssr>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </perfect-scrollbar>
+          </section>
+          <section class="section customer-opinion">
+            <div class="section-title">
+              <span>Сustomer<br>opinion</span>
+              <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
+            </div>
+            <perfect-scrollbar class="content without-title">
+              <div class="content-section-title">
+                <span>Сustomer opinion</span>
+                <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
+              </div>
+              <div class="content-top">
+                <!-- nothing here -->
+              </div>
+              <div class="content-main">
+                <span class="title">Our partners</span>
+                <perfect-scrollbar class="partners" ref="partners">
+                  <div v-for="row in partners_rows" class="row">
+                    <div v-for="(partner, i) in row" :key="i" class="partner">
+                      <img :data-src="partner.acf.logo" alt="">
+                    </div>
+                  </div>
+                </perfect-scrollbar>
+                <span class="title">Сustomer reviews</span>
+                <div class="feedbacks">
+                  <div v-for="fb in feedbacks" class="feedback">
+                    <div class="feedback-inner">
+                      <div class="feedback-title">
+                        <span class="cus-name">{{ fb.acf.name }}</span>
+                        <span class="company">{{ fb.acf.enterprise }}</span>
+                      </div>
+                      <div class="feedback-content">
+                        {{ fb.acf.message }}
                       </div>
                     </div>
                   </div>
-                </transition-group>
-              </div>
-            </div>
-          </perfect-scrollbar>
-        </section>
-
-        <!-- Section 4 -->
-
-        <section class="section news">
-          <div class="section-title">
-            <span>News</span>
-            <form class="subscribe" @submit.prevent="checkSubscribe">
-              <div class="row">
-                <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Subscribe</text-input>
-                <main-button type="submit" theme="light">Subscribe</main-button>
-              </div>
-              <div class="row">
-                <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox></no-ssr>
-              </div>
-            </form>
-          </div>
-          <perfect-scrollbar class="content">
-            <span class="content-section-title">News</span>
-            <div class="content-top">
-              <main-select @input="filterNews" v-model="curTag" :object="true" :options="news.tags" class="select">Categories</main-select>
-            </div>
-            <div class="content-main">
-              <span v-if="newsLoading">Loading ...</span>
-              <span v-else-if="news['news_list'] && news['news_list'].length == 0">News with this tag doesn't exist</span>
-              <div v-else v-for="(row, i) in news.news_rows" :key="i" class="row">
-                <div v-for="news in row" class="news">
-                  <nuxt-link :to="{ name: 'index-posts-id', params: { id: news.ID }}" class="news-wrap">
-                    <span class="date">{{(new Date(news.post_date)).getDate() }}.{{(new Date(news.post_date)).getMonth()+1 }}.{{(new Date(news.post_date)).getFullYear() }}</span>
-                    <img :data-src="news.thumbnail" alt="">
-                    <span class="title">{{ news.post_title }}</span>
-                  </nuxt-link>
-                </div>
-                <div v-if="((i+1)%3 == 0 || i == news.news_rows.length-1) && isTablet" class="sub">
-                  <form class="subscribe" @submit.prevent="checkSubscribe">
-                    <div class="row">
-                      <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Subscribe</text-input>
-                      <main-button type="submit" theme="light">Subscribe</main-button>
-                    </div>
-                    <div class="row">
-                      <no-ssr>
-                        <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox>
-                      </no-ssr>
-                    </div>
-                  </form>
                 </div>
               </div>
+            </perfect-scrollbar>
+          </section>
+          <section class="section contacts">
+            <div class="section-title">
+              Some text here © Soundblox. All rights reserved.
+              <span class="info" @click="showInfo = true">Official information</span>
+              <div class="links">
+                <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
+                <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
+              </div>
             </div>
-          </perfect-scrollbar>
-        </section>
-        <section class="section customer-opinion">
-          <div class="section-title">
-            <span>Сustomer<br>opinion</span>
-            <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
-          </div>
-          <perfect-scrollbar class="content without-title">
-            <div class="content-section-title">
-              <span>Сustomer opinion</span>
-              <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
-            </div>
-            <div class="content-top">
-              <!-- nothing here -->
-            </div>
-            <div class="content-main">
-              <span class="title">Our partners</span>
-              <perfect-scrollbar class="partners" ref="partners">
-                <div v-for="row in partners_rows" class="row">
-                  <div v-for="(partner, i) in row" :key="i" class="partner">
-                    <img :data-src="partner.acf.logo" alt="">
+            <transition-group name="contacts">
+              <perfect-scrollbar :key="1" v-if="showInfo" class="content info">
+                <div class="content-top">
+                  <add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>
+                </div>
+                <div class="content-main">
+                  <span class="title">Official information</span>
+                  <div class="lh-34">
+                    InVision commits to strong and transparent privacy practices. Our Privacy Policy explains:
+                    <ul>
+                      <li>What Personal Data we collect and why we collect it</li>
+                      <li>How we use Personal Data</li>
+                      <li>Who we share Personal Data with</li>
+                      <li>The choices we offer, including how to access, update, and remove Personal Data</li>
+                    </ul>
                   </div>
-                </div>
-              </perfect-scrollbar>
-              <span class="title">Сustomer reviews</span>
-              <div class="feedbacks">
-                <div v-for="fb in feedbacks" class="feedback">
-                  <div class="feedback-inner">
-                    <div class="feedback-title">
-                      <span class="cus-name">{{ fb.acf.name }}</span>
-                      <span class="company">{{ fb.acf.enterprise }}</span>
-                    </div>
-                    <div class="feedback-content">
-                      {{ fb.acf.message }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </perfect-scrollbar>
-        </section>
-        <section class="section contacts">
-          <div class="section-title">
-            Some text here © Soundblox. All rights reserved.
-            <span class="info" @click="showInfo = true">Official information</span>
-            <div class="links">
-              <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
-              <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
-            </div>
-          </div>
-          <transition-group name="contacts">
-            <perfect-scrollbar :key="1" v-if="showInfo" class="content info">
-              <div class="content-top">
-                <add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>
-              </div>
-              <div class="content-main">
-                <span class="title">Official information</span>
-                <div class="lh-34">
-                  InVision commits to strong and transparent privacy practices. Our Privacy Policy explains:
-                  <ul>
-                    <li>What Personal Data we collect and why we collect it</li>
-                    <li>How we use Personal Data</li>
-                    <li>Who we share Personal Data with</li>
-                    <li>The choices we offer, including how to access, update, and remove Personal Data</li>
-                  </ul>
-                </div>
-                <b>
-                  Please read this Privacy Policy carefully. By using or accessing the Service (defined below), you acknowledge that you have read, understood, and agree to be bound to all the terms and conditions of this Privacy Policy, and the “Terms of Use” or other customer agreement between you and InVision that is applicable to the particular Service you are using or accessing (collectively, “User Agreements”).
-                  <br><br>
-                  If you do not agree to this Privacy Policy and the applicable User Agreement, please exit, and do not access or use, the Service.
-                </b>
-                We have kept this simple for your understanding, but if you’re not familiar with terms like “cookies” or “IP addresses,” feel free to contact us. Your privacy is really important to us, so whether you’re new to InVision or a long-time user, please take the time to get to know our practices. Click on any of the links below to go straight to one of the following sections:
-                <span class="title">Introduction</span>
-                <span class="last">
+                  <b>
+                    Please read this Privacy Policy carefully. By using or accessing the Service (defined below), you acknowledge that you have read, understood, and agree to be bound to all the terms and conditions of this Privacy Policy, and the “Terms of Use” or other customer agreement between you and InVision that is applicable to the particular Service you are using or accessing (collectively, “User Agreements”).
+                    <br><br>
+                    If you do not agree to this Privacy Policy and the applicable User Agreement, please exit, and do not access or use, the Service.
+                  </b>
+                  We have kept this simple for your understanding, but if you’re not familiar with terms like “cookies” or “IP addresses,” feel free to contact us. Your privacy is really important to us, so whether you’re new to InVision or a long-time user, please take the time to get to know our practices. Click on any of the links below to go straight to one of the following sections:
+                  <span class="title">Introduction</span>
+                  <span class="last">
                   This Privacy Policy (“Privacy Policy”) sets forth the privacy practices of InVisionApp Inc. and its current and future InVision Affiliates (collectively, “InVision”) for all InVision software and applications (including, without limitation, mobile software and applications) (collectively, the “Software”); the InVision websites located at <a
-                  href="https://www.invisionapp" target="_blank">www.invisionapp.com</a>, <a href="https://designbetter.co" target="_blank">designbetter.co</a>, <a
-                  href="https://muz.li" target="_blank">muz.li</a> and any other InVision websites or services that link to this Privacy Policy, (collectively, the “Websites”); and all other InVision products or services provided or otherwise made accessible on or through the Software or the Websites or that otherwise link to or reference this Privacy Policy. The Software, the Websites, and any other InVision products or services that link or refer to this Privacy Policy are collectively referred to as the “Service.” This Privacy Policy describes how InVision collects, discloses, stores, transfers, and uses information that could individually identify our users (“Personal Data”) in connection with our Service.
+                    href="https://www.invisionapp" target="_blank">www.invisionapp.com</a>, <a href="https://designbetter.co" target="_blank">designbetter.co</a>, <a
+                    href="https://muz.li" target="_blank">muz.li</a> and any other InVision websites or services that link to this Privacy Policy, (collectively, the “Websites”); and all other InVision products or services provided or otherwise made accessible on or through the Software or the Websites or that otherwise link to or reference this Privacy Policy. The Software, the Websites, and any other InVision products or services that link or refer to this Privacy Policy are collectively referred to as the “Service.” This Privacy Policy describes how InVision collects, discloses, stores, transfers, and uses information that could individually identify our users (“Personal Data”) in connection with our Service.
                   <br><br>
                   This Privacy Policy does not apply to the practices of third parties, as explained in more detail below. In this Privacy Policy, “we,” “us,” “our,” and other similar references mean InVision, “you” and “your” and other similar references mean any user of the Service, and “InVision Affiliates” means any parent, subsidiary, member, officer, director, employee, agent, or contractor of InVision or any entity under common control with InVision.
                   <br><br>
@@ -234,67 +235,68 @@
                   <br><br>
                   Please contact us if you have any questions or comments about our privacy practices. You can reach us online at privacy@invisionapp.com or by mail at the address listed in the “What If You Have Questions Regarding Your Personal Data?” section below.
                 </span>
-              </div>
-            </perfect-scrollbar>
-            <perfect-scrollbar :key="2" v-else class="content without-title">
-              <div class="content-main">
-                <span class="title">Contacts</span>
-                <div class="contacts-list">
-                  <div class="contact">
-                    <span class="label">Phone</span>
-                    <span class="value">{{ settings.phone }}</span>
+                </div>
+              </perfect-scrollbar>
+              <perfect-scrollbar :key="2" v-else class="content without-title">
+                <div class="content-main">
+                  <span class="title">Contacts</span>
+                  <div class="contacts-list">
+                    <div class="contact">
+                      <span class="label">Phone</span>
+                      <span class="value">{{ settings.phone }}</span>
+                    </div>
+                    <div class="contact">
+                      <span class="label">E-mail</span>
+                      <span class="value">{{ settings.email }}</span>
+                    </div>
+                    <div class="contact">
+                      <span class="label">Adress</span>
+                      <span class="value">{{ settings.adress }},</span>
+                    </div>
                   </div>
-                  <div class="contact">
-                    <span class="label">E-mail</span>
-                    <span class="value">{{ settings.email }}</span>
-                  </div>
-                  <div class="contact">
-                    <span class="label">Adress</span>
-                    <span class="value">{{ settings.adress }},</span>
+                  <form @submit.prevent="" class="form">
+                    <div class="col-3">
+                      <main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Topic</main-select>
+                    </div>
+                    <div class="col-3">
+                      <text-input class="t-input" v-model="contactForm.name" :error="contactFormErrors.name">Name</text-input>
+                    </div>
+                    <div class="col-3">
+                      <text-input class="t-input" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>
+                    </div>
+                    <div class="col-3">
+                      <main-select placeholder="Select product" v-model="contactForm.productName" :options="productLabels">Product name</main-select>
+                    </div>
+                    <div class="col-3">
+                      <text-input class="t-input" v-model="contactForm.email" :error="contactFormErrors.email">E-mail</text-input>
+                    </div>
+                    <div class="col-3">
+                      <text-input class="t-input" v-model="contactForm.phone" :error="contactFormErrors.phone">Telephone</text-input>
+                    </div>
+                    <div class="col-12">
+                      <text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Enter your message here">Message</text-input>
+                    </div>
+                    <no-ssr>
+                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept">I agree with terms and conditions</checkbox>
+                    </no-ssr>
+                    <main-button class="confirm" theme="light" @click="checkContactForm">Confirm</main-button>
+                  </form>
+                  <div class="section-title section-title-dub">
+                    <div class="left">
+                      Some text here © Soundblox. All rights reserved.
+                      <span class="info" @click="showInfo = true">Official information</span>
+                    </div>
+                    <div class="links">
+                      <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
+                      <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
+                    </div>
                   </div>
                 </div>
-                <form @submit.prevent="" class="form">
-                  <div class="col-3">
-                    <main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Topic</main-select>
-                  </div>
-                  <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.name" :error="contactFormErrors.name">Name</text-input>
-                  </div>
-                  <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>
-                  </div>
-                  <div class="col-3">
-                    <main-select placeholder="Select product" v-model="contactForm.productName" :options="productLabels">Product name</main-select>
-                  </div>
-                  <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.email" :error="contactFormErrors.email">E-mail</text-input>
-                  </div>
-                  <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.phone" :error="contactFormErrors.phone">Telephone</text-input>
-                  </div>
-                  <div class="col-12">
-                    <text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Enter your message here">Message</text-input>
-                  </div>
-                  <no-ssr>
-                    <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept">I agree with terms and conditions</checkbox>
-                  </no-ssr>
-                  <main-button class="confirm" theme="light" @click="checkContactForm">Confirm</main-button>
-                </form>
-                <div class="section-title section-title-dub">
-                  <div class="left">
-                    Some text here © Soundblox. All rights reserved.
-                    <span class="info" @click="showInfo = true">Official information</span>
-                  </div>
-                  <div class="links">
-                    <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
-                    <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
-                  </div>
-                </div>
-              </div>
-            </perfect-scrollbar>
-          </transition-group>
-        </section>
-      </div>
+              </perfect-scrollbar>
+            </transition-group>
+          </section>
+        </div>
+      </no-ssr>
     </main>
     <script src="/libs/fullpage.min.js"></script>
   </div>
