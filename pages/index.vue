@@ -11,7 +11,6 @@
         <!-- Section 1 -->
 
         <section class="section main-screen">
-          <span class="instruction">Scroll down</span>
           <main-slider :settings="mainSlider"></main-slider>
         </section>
 
