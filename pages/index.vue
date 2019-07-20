@@ -497,11 +497,14 @@ export default {
       new fullpage('#fullpage', {
         anchors: ['main', 'our-products', 'our-references', 'news', 'customer-opinion', 'contacts'],
         menu: 'nav.nav>ul',
-        normalScrollElements: '.section .content, .scroll-content',
+        // normalScrollElements: '.section .content, .scroll-content',
         afterRender: this.headerControl,
         onLeave: this.onLeave,
         animateAnchor: false
       });
+
+      fullpage_api.setKeyboardScrolling(false);
+      fullpage_api.setAllowScrolling(false);
     }, 500);
 
     this.partnersToRows();
