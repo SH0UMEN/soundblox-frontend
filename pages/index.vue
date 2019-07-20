@@ -30,7 +30,8 @@
               <span v-else-if="products.products['product_list'] && products.products['product_list'].length == 0">No products found</span>
               <div v-else v-for="(product, p) in products.products['product_list']" :key="p" class="item-card">
                 <div class="item-image">
-                  <img :data-src="product.acf.picture" alt="">
+                  <img v-if="!productLoaded" :data-src="product.acf.picture" alt="">
+                  <img v-else :src="product.acf.picture" alt="">
                 </div>
                 <div class="item-content">
                   <span class="item-title">{{ product.post_title }}</span>
@@ -130,7 +131,8 @@
                 <div v-for="news in row" class="news">
                   <nuxt-link :to="{ name: 'index-posts-id', params: { id: news.ID }}" class="news-wrap">
                     <span class="date">{{(new Date(news.post_date)).getDate() }}.{{(new Date(news.post_date)).getMonth()+1 }}.{{(new Date(news.post_date)).getFullYear() }}</span>
-                    <img :data-src="news.thumbnail" alt="">
+                    <img v-if="!newsLoaded" :data-src="news.thumbnail" alt="">
+                    <img v-else :src="news.thumbnail" alt="">
                     <span class="title">{{ news.post_title }}</span>
                   </nuxt-link>
                 </div>
@@ -325,7 +327,9 @@ export default {
       // Interactive
 
       productLoading: false,
+      productLoaded: false,
       newsLoading: false,
+      newsLoaded: false,
 
       // Swiper
 
@@ -576,6 +580,7 @@ export default {
           filters = this.products.filtersValues;
 
       this.productLoading = true;
+      this.productLoaded = true;
 
       for(let k in filters) {
         if(filters[k] != 'Dont matter') {
@@ -652,6 +657,7 @@ export default {
 
     filterNews() {
       this.newsLoading = true;
+      this.newsLoaded = true;
 
       this.$axios.get('api/?action=get-news'+((this.curTag.name!='All') ? '&tag=' + this.curTag.slug : '')).then((res)=>{
         this.news.news_list = res.data;
@@ -747,12 +753,16 @@ export default {
     },
     headerControl() {
       for(let elem of document.querySelectorAll('.content.ps')) {
-        elem.addEventListener('wheel', (e) => {
-          if(e.deltaY > 0) {
+        let lastScroll = 0;
+
+        elem.addEventListener('scroll', (e) => {
+          if(elem.scrollTop > lastScroll) {
             this.header.hide = true;
-          } else if (e.deltaY < 0) {
+          } else {
             this.header.hide = false;
           }
+
+          lastScroll = elem.scrollTop;
         })
       }
     }
