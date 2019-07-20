@@ -510,6 +510,12 @@ export default {
 
     this.partnersToRows();
     this.$nextTick(this.fixHeight);
+
+    // Fixing vh
+
+    let vh = window.innerHeight * 0.01;
+
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   },
   watch: {
     isTablet() {

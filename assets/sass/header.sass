@@ -73,6 +73,7 @@ header
     display: flex
     top: 0
     height: 100vh
+    height: calc(var(--vh, 1vh) * 100)
     padding-bottom: 140px
     font-weight: 500
     padding-top: 140px
@@ -211,8 +212,10 @@ header
       background-color: rgba(0,0,0,0)
       transition: background-color .4s, top .0001s .4s
       top: -100vh
+      top: calc(var(--vh, 1vh) * 100)
       align-items: start !important
-      height: 100vh !important
+      height: 100vh
+      height: calc(var(--vh, 1vh) * 100) !important
       flex-direction: column
       padding-top: 80px !important
 
