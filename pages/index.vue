@@ -45,7 +45,7 @@
                   <div class="item-panel">
                     <main-button class="item-panel-button" @click="moveTo('contacts');contactForm.productName = product.post_title" theme="light">Order</main-button>
                     <div class="item-panel-tags">
-                      <span v-for="tag in product.acf.tags" class="item-panel-tag">{{ tag.tag }}</span>
+                      <add-button v-for="att in product.acf.attachments" type="link" :href="att.file" class="item-panel-tag">{{ att.label }}</add-button>
                     </div>
                   </div>
                 </div>
@@ -508,6 +508,9 @@ export default {
         onLeave: this.onLeave,
         animateAnchor: false
       });
+
+      fullpage_api.setAllowScrolling(false);
+      fullpage_api.setKeyboardScrolling(false);
     }, 500);
 
     this.partnersToRows();
@@ -752,11 +755,25 @@ export default {
       this.popup.isShown = true;
 
       setTimeout(()=>{
-        this.popup.isShown = false;
+        this.popup.isShown = false
       }, 3000);
     },
     onLeave(origin, destination, direction) {
       (destination.anchor == 'main') ? (this.header.theme = 'dark') : (this.header.theme = 'light');
+
+      if(origin.anchor == 'news') {
+        this.subscribe.error = ""
+      } else if(origin.anchor == 'contacts') {
+        this.showInfo = false;
+        this.contactFormErrors.email = "";
+        this.contactFormErrors.enterprise = "";
+        this.contactFormErrors.phone = "";
+        this.contactFormErrors.message = "";
+        this.contactFormErrors.topic = "";
+        this.contactFormErrors.productName = "";
+        this.contactFormErrors.name = "";
+      }
+
 
       setTimeout(()=>{
         if(destination.anchor != 'our-products') {
