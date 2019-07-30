@@ -106,31 +106,33 @@ section.contacts
 
     &.info
       .content-main
-        font-size: $main-text
-        color: $gray-dark
         line-height: 24px
 
         .title
           display: block
           color: $black
           font-size: $header-2-desk !important
+          margin-bottom: 30px
 
-          &:not(:first-child)
-            margin-top: 30px
+        .info-content
+          a
+            color: $blue-dark
+
+          p, ul
             margin-bottom: 30px
 
-        .lh-34
-          line-height: 34px
-          margin-top: 30px
-          margin-bottom: 30px
-
           ul
-            padding-left: 16px
+            color: $gray-dark
+            font-size: $main-text
+            padding-left: 15px
 
-        b
-          display: block
-          color: $black
-          margin-bottom: 30px
+          b
+            display: block
+            color: $black
+            margin-bottom: 30px
+
+          >*:last-child
+            margin-bottom: 0
 
   @media screen and (max-width: $laptop-screen)
     .content

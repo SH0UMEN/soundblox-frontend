@@ -207,34 +207,8 @@
                 <add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>
               </div>
               <div class="content-main">
-                <span class="title">Official information</span>
-                <div class="lh-34">
-                  InVision commits to strong and transparent privacy practices. Our Privacy Policy explains:
-                  <ul>
-                    <li>What Personal Data we collect and why we collect it</li>
-                    <li>How we use Personal Data</li>
-                    <li>Who we share Personal Data with</li>
-                    <li>The choices we offer, including how to access, update, and remove Personal Data</li>
-                  </ul>
-                </div>
-                <b>
-                  Please read this Privacy Policy carefully. By using or accessing the Service (defined below), you acknowledge that you have read, understood, and agree to be bound to all the terms and conditions of this Privacy Policy, and the “Terms of Use” or other customer agreement between you and InVision that is applicable to the particular Service you are using or accessing (collectively, “User Agreements”).
-                  <br><br>
-                  If you do not agree to this Privacy Policy and the applicable User Agreement, please exit, and do not access or use, the Service.
-                </b>
-                We have kept this simple for your understanding, but if you’re not familiar with terms like “cookies” or “IP addresses,” feel free to contact us. Your privacy is really important to us, so whether you’re new to InVision or a long-time user, please take the time to get to know our practices. Click on any of the links below to go straight to one of the following sections:
-                <span class="title">Introduction</span>
-                <span class="last">
-                  This Privacy Policy (“Privacy Policy”) sets forth the privacy practices of InVisionApp Inc. and its current and future InVision Affiliates (collectively, “InVision”) for all InVision software and applications (including, without limitation, mobile software and applications) (collectively, the “Software”); the InVision websites located at <a
-                  href="https://www.invisionapp" target="_blank">www.invisionapp.com</a>, <a href="https://designbetter.co" target="_blank">designbetter.co</a>, <a
-                  href="https://muz.li" target="_blank">muz.li</a> and any other InVision websites or services that link to this Privacy Policy, (collectively, the “Websites”); and all other InVision products or services provided or otherwise made accessible on or through the Software or the Websites or that otherwise link to or reference this Privacy Policy. The Software, the Websites, and any other InVision products or services that link or refer to this Privacy Policy are collectively referred to as the “Service.” This Privacy Policy describes how InVision collects, discloses, stores, transfers, and uses information that could individually identify our users (“Personal Data”) in connection with our Service.
-                  <br><br>
-                  This Privacy Policy does not apply to the practices of third parties, as explained in more detail below. In this Privacy Policy, “we,” “us,” “our,” and other similar references mean InVision, “you” and “your” and other similar references mean any user of the Service, and “InVision Affiliates” means any parent, subsidiary, member, officer, director, employee, agent, or contractor of InVision or any entity under common control with InVision.
-                  <br><br>
-                  This policy applies (i) immediately to new users who use or access the Service on or after the Effective Date and (ii) on the Effective Date to users who use or access the Service before the Effective Date.
-                  <br><br>
-                  Please contact us if you have any questions or comments about our privacy practices. You can reach us online at privacy@invisionapp.com or by mail at the address listed in the “What If You Have Questions Regarding Your Personal Data?” section below.
-                </span>
+                <span class="title">{{ info.post_title }}</span>
+                <div class="info-content" v-html="info.post_content"></div>
               </div>
             </perfect-scrollbar>
             <perfect-scrollbar :key="2" v-show="!showInfo" class="content without-title">
@@ -452,7 +426,8 @@ export default {
         partners_rows: [],
         topics: res.data['Topics'],
         productLabels: [],
-        settings: res.data['Settings']
+        settings: res.data['Settings'],
+        info: res.data['Info']
       },
         allReferences = [],
         productLabels = [];
