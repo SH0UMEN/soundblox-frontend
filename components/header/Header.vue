@@ -29,12 +29,12 @@
     </div>
     <nav class="nav" :class="{ 'shown': navOpened }">
       <ul>
-        <li @click="navOpened = false" data-menuanchor="main" class="active"><a href="#main">Main</a></li>
-        <li @click="navOpened = false" data-menuanchor="our-products"><a href="#our-products">Our products</a></li>
-        <li @click="navOpened = false" data-menuanchor="our-references"><a href="#our-references">Our references</a></li>
-        <li @click="navOpened = false" data-menuanchor="news"><a href="#news">News</a></li>
-        <li @click="navOpened = false" data-menuanchor="customer-opinion"><a href="#customer-opinion">Customer opinion</a></li>
-        <li @click="navOpened = false" data-menuanchor="contacts"><a href="#contacts">Contacts</a></li>
+        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="main" class="active"><a href="#main">Main</a></li>
+        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="our-products"><a href="#our-products">Our products</a></li>
+        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="our-references"><a href="#our-references">Our references</a></li>
+        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="news"><a href="#news">News</a></li>
+        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="customer-opinion"><a href="#customer-opinion">Customer opinion</a></li>
+        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="contacts"><a href="#contacts">Contacts</a></li>
       </ul>
       <div class="links">
         <add-button class="link" type="link" theme="dark" :href="links.linkedin">linkedin</add-button>
