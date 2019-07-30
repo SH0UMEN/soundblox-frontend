@@ -202,7 +202,7 @@
             </div>
           </div>
           <transition-group name="contacts">
-            <perfect-scrollbar :key="1" v-if="showInfo" class="content info">
+            <perfect-scrollbar :key="1" v-show="showInfo" class="content info">
               <div class="content-top">
                 <add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>
               </div>
@@ -237,7 +237,7 @@
                 </span>
               </div>
             </perfect-scrollbar>
-            <perfect-scrollbar :key="2" v-else class="content without-title">
+            <perfect-scrollbar :key="2" v-show="!showInfo" class="content without-title">
               <div class="content-main">
                 <span class="title">Contacts</span>
                 <div class="contacts-list">
