@@ -11,11 +11,6 @@
 
 <script>
   export default {
-    data() {
-      return {
-
-      }
-    },
     name: 'index-posts',
     transition: {
       name: 'add-page',

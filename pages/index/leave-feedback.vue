@@ -24,7 +24,10 @@
             <text-input :error="errors.message" v-model="message" type="text-area" placeholder="Enter your feedback here">Message</text-input>
           </div>
           <no-ssr>
-            <checkbox :fontSize="12" color="#3432FF" class="checkbox" v-model="accept">I agree with terms and conditions</checkbox>
+            <div class="accept">
+              <checkbox :fontSize="12" color="#3432FF" class="checkbox" v-model="accept">I agree with terms and conditions</checkbox>
+              <span class="accept-error" :class="{ 'hide': errors.accept.length == 0 }">{{ errors.accept }}</span>
+            </div>
           </no-ssr>
           <main-button class="confirm" @click="checkForm" theme="light">Confirm</main-button>
         </form>
@@ -61,6 +64,7 @@
           enterprise: '',
           email: '',
           message: '',
+          accept: ''
         }
       }
     },
@@ -83,11 +87,15 @@
         if(this.name.length == 0) {
           this.errors.name = "This field is required";
           error = true;
-        } else if(!this.accept) {
-          this.errors.name = "Confirm your agree";
-          error = true;
         } else {
           this.errors.name = "";
+        }
+
+        if(!this.accept) {
+          this.errors.accept = "Confirm your agree";
+          error = true;
+        } else {
+          this.errors.accept = '';
         }
 
         if(this.enterprise.length == 0) {
@@ -113,6 +121,11 @@
 
         if(!error) {
           this.$axios.post('api/', fd).then(res=>{
+            this.email = "";
+            this.enterprise = "";
+            this.name = "";
+            this.message = "";
+            this.accept = false;
             this.showPopup('Feedback sent', 'Thanks for the feedback.<br>Your feedback helps us get better.');
           });
         }

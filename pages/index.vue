@@ -277,7 +277,10 @@
                     <text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Enter your message here">Message</text-input>
                   </div>
                   <no-ssr>
-                    <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept">I agree with terms and conditions</checkbox>
+                    <div class="accept">
+                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept">I agree with terms and conditions</checkbox>
+                      <span class="accept-error" :class="{ 'hide': contactFormErrors.accept.length == 0 }">{{ contactFormErrors.accept }}</span>
+                    </div>
                   </no-ssr>
                   <main-button class="confirm" theme="light" @click="checkContactForm">Confirm</main-button>
                 </form>
@@ -407,7 +410,8 @@ export default {
         productName: '',
         email: '',
         phone: '',
-        message: ''
+        message: '',
+        accept: ''
       },
 
       contactForm: {
@@ -434,6 +438,7 @@ export default {
           },
         },
         news: res.data['News'],
+        all_news: res.data['News'],
         mainSlider: {
           slides: res.data['Slides']
         },
@@ -658,6 +663,7 @@ export default {
           if(res.data == 0) {
             this.subscribe.error = "You're subscribed already";
           } else {
+            this.clearForms();
             this.showPopup('You have subscribed', 'Thank you for your trust.</br>We will keep you updated.');
           }
         });
@@ -690,11 +696,15 @@ export default {
       if(this.contactForm.name.length == 0) {
         this.contactFormErrors.name = "This field is required";
         error = true;
-      } else if(!this.contactForm.accept) {
-        this.contactFormErrors.name = "Confirm your agree";
-        error = true;
       } else {
         this.contactFormErrors.name = "";
+      }
+
+      if(!this.contactForm.accept) {
+        this.contactFormErrors.accept = "Confirm your agree";
+        error = true;
+      } else {
+        this.contactFormErrors.accept = "";
       }
 
       if(this.contactForm.enterprise.length == 0) {
@@ -731,12 +741,42 @@ export default {
 
 
         this.$axios.post('api/', fd).then(res=>{
-          this.showPopup('Message sent', 'Thanks for the message. <br>We will contact you shortly.');
+          this.clearForms();
+          this.showPopup('Message sent', "Thanks for the message.<br>We will contact you shortly.");
         });
       }
     },
 
     // Common
+
+    clearFilters() {
+      this.curTag = this.news.tags[0];
+      this.products.filtersValues.acoustic = this.products.products['filters']['acoustic'][0];
+      this.products.filtersValues.utilization = this.products.products['filters']['utilization'][0];
+      this.products.filtersValues.thickness = this.products.products['filters']['thickness'][0];
+    },
+
+    clearForms() {
+      this.contactForm.topic = this.topics[0];
+      this.contactForm.productName = '';
+      this.contactForm.name = '';
+      this.contactForm.phone = '';
+      this.contactForm.email = '';
+      this.contactForm.enterprise = '';
+      this.contactForm.message = '';
+      this.contactForm.accept = false;
+      this.subscribe.email = "";
+      this.subscribe.error = "";
+      this.subscribe.accept = false;
+      this.contactFormErrors.email = "";
+      this.contactFormErrors.enterprise = "";
+      this.contactFormErrors.phone = "";
+      this.contactFormErrors.message = "";
+      this.contactFormErrors.topic = "";
+      this.contactFormErrors.productName = "";
+      this.contactFormErrors.name = "";
+      this.contactFormErrors.accept = "";
+    },
 
     moveTo(section) {
       fullpage_api.moveTo(section, 0);
@@ -761,19 +801,12 @@ export default {
     onLeave(origin, destination, direction) {
       (destination.anchor == 'main') ? (this.header.theme = 'dark') : (this.header.theme = 'light');
 
-      if(origin.anchor == 'news') {
-        this.subscribe.error = ""
-      } else if(origin.anchor == 'contacts') {
-        this.showInfo = false;
-        this.contactFormErrors.email = "";
-        this.contactFormErrors.enterprise = "";
-        this.contactFormErrors.phone = "";
-        this.contactFormErrors.message = "";
-        this.contactFormErrors.topic = "";
-        this.contactFormErrors.productName = "";
-        this.contactFormErrors.name = "";
-      }
+      this.clearForms();
+      this.clearFilters();
 
+      if(origin.anchor == 'contacts') {
+        this.showInfo = false;
+      }
 
       setTimeout(()=>{
         if(destination.anchor != 'our-products') {

@@ -30,7 +30,12 @@ name: "TextInput",
   },
   data() {
     return {
-      valueLocal: this.value
+      valueLocal: ""
+    }
+  },
+  watch: {
+    value() {
+      this.valueLocal = this.value;
     }
   }
 }

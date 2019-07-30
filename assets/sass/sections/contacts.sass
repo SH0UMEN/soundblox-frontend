@@ -85,7 +85,23 @@ section.contacts
         .col-3, .col-12
           margin-top: 15px
 
+        .accept
+          position: relative
+          width: 100%
+
+          .accept-error
+            font-size: $label
+            color: $red
+            position: absolute
+            opacity: 1
+            transition: opacity .4s
+            bottom: -5px
+
+            &.hide
+              opacity: 0
+
         .confirm
+          display: block
           margin-top: 40px
 
     &.info

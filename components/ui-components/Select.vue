@@ -3,9 +3,9 @@
       <span class="multiselect-title">
         <slot></slot>
       </span>
-      <multiselect :preselect-first="preselectedFirst ? true : false" :placeholder="placeholder" v-if="!object" :allow-empty="false" @input="$emit('input', curValue)" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options" open-direction="bottom">
+      <multiselect :preselect-first="preselectedFirst ? true : false" :placeholder="placeholder" v-if="!object" :allow-empty="false" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options" open-direction="bottom">
       </multiselect>
-      <multiselect :preselect-first="preselectedFirst ? true : false" :placeholder="placeholder" v-else label="name" track-by="name" :allow-empty="false" @input="$emit('input', curValue)" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options" open-direction="bottom">
+      <multiselect :preselect-first="preselectedFirst ? true : false" :placeholder="placeholder" v-else label="name" track-by="name" :allow-empty="false" @open="setOpened(true);" :searchable="false" @close="setOpened(false);" v-model="curValue" :show-labels="false" :options="options" open-direction="bottom">
       </multiselect>
     </div>
 </template>
@@ -31,6 +31,9 @@
       }
     },
     watch: {
+      curValue() {
+        this.$emit('input', this.curValue);
+      },
       value() {
         this.curValue = this.value;
       }
