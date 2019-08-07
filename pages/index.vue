@@ -17,9 +17,9 @@
         <!-- Section 2 -->
 
         <section class="section our-products">
-          <span class="section-title">Our products</span>
+          <span class="section-title">Nos produits</span>
           <perfect-scrollbar class="content">
-            <span class="content-section-title">Our products</span>
+            <span class="content-section-title">Nos produits</span>
             <div class="content-top" v-if="products.products['filters']">
               <main-select @input="filterProducts" v-model="products.filtersValues.utilization" :options="products.products['filters']['utilization']" class="select">Utilization</main-select>
               <main-select @input="filterProducts" v-model="products.filtersValues.acoustic" :options="products.products['filters']['acoustic']" class="select">Acoutsic</main-select>
@@ -57,9 +57,9 @@
         <!-- Section 3 -->
 
         <section class="section our-references">
-          <span class="section-title">Our references</span>
+          <span class="section-title">Nos références</span>
           <perfect-scrollbar class="content">
-            <span class="content-section-title">Our references</span>
+            <span class="content-section-title">Nos références</span>
             <div class="content-top">
               <no-ssr>
                 <perfect-scrollbar>
@@ -108,19 +108,19 @@
 
         <section class="section news">
           <div class="section-title">
-            <span>News</span>
+            <span>Actualités</span>
             <form class="subscribe" @submit.prevent="checkSubscribe">
               <div class="row">
-                <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Subscribe</text-input>
-                <main-button type="submit" theme="light">Subscribe</main-button>
+                <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
+                <main-button type="submit" theme="light">Souscrire</main-button>
               </div>
               <div class="row">
-                <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox></no-ssr>
+                <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">Je suis d'accord avec les termes et les conditions</checkbox></no-ssr>
               </div>
             </form>
           </div>
           <perfect-scrollbar class="content">
-            <span class="content-section-title">News</span>
+            <span class="content-section-title">Actualités</span>
             <div class="content-top">
               <main-select @input="filterNews" v-model="curTag" :object="true" :options="news.tags" class="select">Categories</main-select>
             </div>
@@ -139,12 +139,12 @@
                 <div v-if="((i+1)%3 == 0 || i == news.news_rows.length-1) && isTablet" class="sub">
                   <form class="subscribe" @submit.prevent="checkSubscribe">
                     <div class="row">
-                      <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Subscribe</text-input>
+                      <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
                       <main-button type="submit" theme="light">Subscribe</main-button>
                     </div>
                     <div class="row">
                       <no-ssr>
-                        <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">I agree with terms and conditions</checkbox>
+                        <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">Je suis d'accord avec les termes et les conditions</checkbox>
                       </no-ssr>
                     </div>
                   </form>
@@ -155,19 +155,19 @@
         </section>
         <section class="section customer-opinion">
           <div class="section-title">
-            <span>Сustomer<br>opinion</span>
-            <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
+            <span>Option<br>client</span>
+            <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Laisser un commentaire</main-button>
           </div>
           <perfect-scrollbar class="content without-title">
             <div class="content-section-title">
-              <span>Сustomer opinion</span>
-              <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Leave feedback</main-button>
+              <span>Option client</span>
+              <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Laisser un commentaire</main-button>
             </div>
             <div class="content-top">
               <!-- nothing here -->
             </div>
             <div class="content-main">
-              <span class="title">Our partners</span>
+              <span class="title">Nos partenaires</span>
               <perfect-scrollbar class="partners" ref="partners">
                 <div v-for="row in partners_rows" class="row">
                   <div v-for="(partner, i) in row" :key="i" class="partner">
@@ -175,7 +175,7 @@
                   </div>
                 </div>
               </perfect-scrollbar>
-              <span class="title">Сustomer reviews</span>
+              <span class="title">Avis des clients</span>
               <div class="feedbacks">
                 <div v-for="fb in feedbacks" class="feedback">
                   <div class="feedback-inner">
@@ -195,7 +195,7 @@
         <section class="section contacts">
           <div class="section-title">
             Some text here © Soundblox. All rights reserved.
-            <span class="info" @click="showInfo = true">Official information</span>
+            <span class="info" @click="showInfo = true">Information officielle</span>
             <div class="links">
               <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
               <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
@@ -216,7 +216,7 @@
                 <span class="title">Contacts</span>
                 <div class="contacts-list">
                   <div class="contact">
-                    <span class="label">Phone</span>
+                    <span class="label">Numéro de téléphone</span>
                     <span class="value">{{ settings.phone }}</span>
                   </div>
                   <div class="contact">
@@ -224,44 +224,44 @@
                     <span class="value">{{ settings.email }}</span>
                   </div>
                   <div class="contact">
-                    <span class="label">Adress</span>
+                    <span class="label">Adresse</span>
                     <span class="value">{{ settings.adress }},</span>
                   </div>
                 </div>
                 <form @submit.prevent="" class="form">
                   <div class="col-3">
-                    <main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Topic</main-select>
+                    <main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Sujet</main-select>
                   </div>
                   <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.name" :error="contactFormErrors.name">Name</text-input>
+                    <text-input class="t-input" v-model="contactForm.name" :error="contactFormErrors.name">Nom</text-input>
                   </div>
                   <div class="col-3">
                     <text-input class="t-input" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>
                   </div>
                   <div class="col-3">
-                    <main-select placeholder="Select product" v-model="contactForm.productName" :options="productLabels">Product name</main-select>
+                    <main-select placeholder="Sélectionner un produit" v-model="contactForm.productName" :options="productLabels">Nom de produit</main-select>
                   </div>
                   <div class="col-3">
                     <text-input class="t-input" v-model="contactForm.email" :error="contactFormErrors.email">E-mail</text-input>
                   </div>
                   <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.phone" :error="contactFormErrors.phone">Telephone</text-input>
+                    <text-input class="t-input" v-model="contactForm.phone" :error="contactFormErrors.phone">Numéro de téléphone</text-input>
                   </div>
                   <div class="col-12">
-                    <text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Enter your message here">Message</text-input>
+                    <text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Entrez votre message ici">Message</text-input>
                   </div>
                   <no-ssr>
                     <div class="accept">
-                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept">I agree with terms and conditions</checkbox>
+                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept">Je suis d'accord avec les termes et les conditions</checkbox>
                       <span class="accept-error" :class="{ 'hide': contactFormErrors.accept.length == 0 }">{{ contactFormErrors.accept }}</span>
                     </div>
                   </no-ssr>
-                  <main-button class="confirm" theme="light" @click="checkContactForm">Confirm</main-button>
+                  <main-button class="confirm" theme="light" @click="checkContactForm">Confirmer</main-button>
                 </form>
                 <div class="section-title section-title-dub">
                   <div class="left">
                     Some text here © Soundblox. All rights reserved.
-                    <span class="info" @click="showInfo = true">Official information</span>
+                    <span class="info" @click="showInfo = true">Information officielle</span>
                   </div>
                   <div class="links">
                     <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
@@ -363,12 +363,12 @@ export default {
       // News
 
       subscribe: {
-        placeholder: "Enter your email",
+        placeholder: "Entrer votre email",
         email: '',
         error: '',
         accept: false
       },
-      curTag: {name: 'All', slug: ''},
+      curTag: {name: 'Tous', slug: ''},
       news: {
         tags: [],
         news_rows: []
@@ -417,7 +417,7 @@ export default {
           slides: res.data['Slides']
         },
         references: {
-          curCategory: 'All',
+          curCategory: 'Tous',
           curProject: 0,
           refs: res.data['References']
         },
@@ -438,14 +438,14 @@ export default {
 
       result['productLabels'] = productLabels;
 
-      result.references.refs['Categories'] = Object.assign({'All': 'All'}, result.references.refs['Categories']);
+      result.references.refs['Categories'] = Object.assign({'Tous': 'Tous'}, result.references.refs['Categories']);
 
       for(let category in result.references.refs['References']) {
         allReferences = allReferences.concat(result.references.refs['References'][category]);
       }
 
       result.news = Object.assign({'news_rows': []}, result.news);
-      result.references.refs['References'] = Object.assign({'All': allReferences}, result.references.refs['References']);
+      result.references.refs['References'] = Object.assign({'Tous': allReferences}, result.references.refs['References']);
 
       return result;
 
@@ -624,7 +624,7 @@ export default {
 
     checkSubscribe() {
       if(!this.emailRegex.test(this.subscribe.email)) {
-        this.subscribe.error = "Incorrect email";
+        this.subscribe.error = "Email incorrecte";
       } else if(!this.subscribe.accept) {
         this.subscribe.error = "Confirm your agree";
       } else {
@@ -649,7 +649,7 @@ export default {
       this.newsLoading = true;
       this.newsLoaded = true;
 
-      this.$axios.get('api/?action=get-news'+((this.curTag.name!='All') ? '&tag=' + this.curTag.slug : '')).then((res)=>{
+      this.$axios.get('api/?action=get-news'+((this.curTag.name!='Tous') ? '&tag=' + this.curTag.slug : '')).then((res)=>{
         this.news.news_list = res.data;
         this.newsToRows();
         this.newsLoading = false;
@@ -662,42 +662,42 @@ export default {
       let error = false;
 
       if(!this.emailRegex.test(this.contactForm.email)) {
-        this.contactFormErrors.email = "Incorrect email";
+        this.contactFormErrors.email = "Email incorrecte";
         error = true;
       } else {
         this.contactFormErrors.email = "";
       }
 
       if(this.contactForm.name.length == 0) {
-        this.contactFormErrors.name = "This field is required";
+        this.contactFormErrors.name = "Ce champ est requis";
         error = true;
       } else {
         this.contactFormErrors.name = "";
       }
 
       if(!this.contactForm.accept) {
-        this.contactFormErrors.accept = "Confirm your agree";
+        this.contactFormErrors.accept = "Ne confirmez pas votre accord";
         error = true;
       } else {
         this.contactFormErrors.accept = "";
       }
 
       if(this.contactForm.enterprise.length == 0) {
-        this.contactFormErrors.enterprise = "This field is required";
+        this.contactFormErrors.enterprise = "Ce champ est requis";
         error = true;
       } else {
         this.contactFormErrors.enterprise = "";
       }
 
       if(this.contactForm.message.length == 0) {
-        this.contactFormErrors.message = "This field is required";
+        this.contactFormErrors.message = "Ce champ est requis";
         error = true;
       } else {
         this.contactFormErrors.message = "";
       }
 
       if(this.contactForm.phone.length == 0) {
-        this.contactFormErrors.phone = "This field is required";
+        this.contactFormErrors.phone = "Ce champ est requis";
         error = true;
       } else {
         this.contactFormErrors.phone = "";

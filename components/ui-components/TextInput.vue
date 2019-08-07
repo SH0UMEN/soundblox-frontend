@@ -17,7 +17,7 @@ name: "TextInput",
     },
     placeholder: {
       type: String,
-      default: "Enter the value"
+      default: "Entrez la valeur"
     },
     value: {
       type: String,

@@ -16,12 +16,12 @@
                   <path d="M8 10.59L3.42 6L8 1.41L6.59 0L0.59 6L6.59 12L8 10.59Z" fill="black"/>
                 </svg>
               </span>
-              <span>Previous</span>
+              <span>Précédent</span>
             </div>
           </nuxt-link>
           <nuxt-link class="news-nav" :to="{ name: 'index-posts-id', params: { id: next }}">
             <div @click="show = false" class="news-nav-inner">
-              <span>Next</span>
+              <span>Suivant</span>
               <span>
                 <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 1.41L4.58 6L0 10.59L1.41 12L7.41 6L1.41 0L0 1.41Z" fill="black"/>

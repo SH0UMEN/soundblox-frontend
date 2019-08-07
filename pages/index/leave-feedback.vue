@@ -6,30 +6,30 @@
     <div class="content">
       <nuxt-link class="back" :to="{ name: 'index' }">Close</nuxt-link>
       <perfect-scrollbar class="scroll-content">
-        <span class="title">Leave Feedback</span>
+        <span class="title">Laisser un commentaire</span>
         <form @submit.prevent="">
           <div class="text">
             Thus, the strengthening and development of the structure plays an important role in the formation of participatory systems. Comrades! the beginning of the daily work on the formation of the position.
           </div>
           <div class="field">
-            <text-input :error="errors.name" v-model="name" placeholder="Enter your name">Name</text-input>
+            <text-input :error="errors.name" v-model="name" placeholder="Entrez votre nom">Nom</text-input>
           </div>
           <div class="field">
-            <text-input :error="errors.enterprise" v-model="enterprise" placeholder="Enter the name of your company">Enterprise</text-input>
+            <text-input :error="errors.enterprise" v-model="enterprise" placeholder="Entrez le nom de votre entreprise">Enterprise</text-input>
           </div>
           <div class="field">
-            <text-input :error="errors.email" v-model="email" placeholder="Enter your email">Email</text-input>
+            <text-input :error="errors.email" v-model="email" placeholder="Entrer votre email">Email</text-input>
           </div>
           <div class="field">
-            <text-input :error="errors.message" v-model="message" type="text-area" placeholder="Enter your feedback here">Message</text-input>
+            <text-input :error="errors.message" v-model="message" type="text-area" placeholder="Entrez vos commentaires ici">Message</text-input>
           </div>
           <no-ssr>
             <div class="accept">
-              <checkbox :fontSize="12" color="#3432FF" class="checkbox" v-model="accept">I agree with terms and conditions</checkbox>
+              <checkbox :fontSize="12" color="#3432FF" class="checkbox" v-model="accept">Je suis d'accord avec les termes et les conditions</checkbox>
               <span class="accept-error" :class="{ 'hide': errors.accept.length == 0 }">{{ errors.accept }}</span>
             </div>
           </no-ssr>
-          <main-button class="confirm" @click="checkForm" theme="light">Confirm</main-button>
+          <main-button class="confirm" @click="checkForm" theme="light">Confirmer</main-button>
         </form>
       </perfect-scrollbar>
     </div>
@@ -78,35 +78,35 @@
             error = false;
 
         if(!emailRegex.test(this.email)) {
-          this.errors.email = "Incorrect email";
+          this.errors.email = "Email incorrecte";
           error = true;
         } else {
           this.errors.email = "";
         }
 
         if(this.name.length == 0) {
-          this.errors.name = "This field is required";
+          this.errors.name = "Ce champ est requis";
           error = true;
         } else {
           this.errors.name = "";
         }
 
         if(!this.accept) {
-          this.errors.accept = "Confirm your agree";
+          this.errors.accept = "Confirmez votre accord";
           error = true;
         } else {
           this.errors.accept = '';
         }
 
         if(this.enterprise.length == 0) {
-          this.errors.enterprise = "This field is required";
+          this.errors.enterprise = "Ce champ est requis";
           error = true;
         } else {
           this.errors.enterprise = "";
         }
 
         if(this.message.length == 0) {
-          this.errors.message = "This field is required";
+          this.errors.message = "Ce champ est requis";
           error = true;
         } else {
           this.errors.message = "";
