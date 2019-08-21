@@ -80,12 +80,8 @@
       next();
     },
     methods: {
-      moveTo(section) {
-        fullpage_api.moveTo(section, 0);
-      },
       toInfo() {
         this.showInfo = true;
-        this.moveTo('contacts');
         this.$router.push({ name: 'index' });
       },
       checkForm() {

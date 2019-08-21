@@ -519,6 +519,9 @@ export default {
   beforeRouteUpdate(to, from, next) {
     if(from.query['showInfo'] == true) {
       this.showInfo = true;
+      setTimeout(()=>{
+        this.moveTo('contacts');
+      }, 100);
     }
     next()
   },
