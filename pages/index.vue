@@ -216,7 +216,7 @@
                 <span class="title">Contacts</span>
                 <div class="contacts-list">
                   <div class="contact">
-                    <span class="label">Numéro de téléphone</span>
+                    <span class="label">Numéro</span>
                     <span class="value">{{ settings.phone }}</span>
                   </div>
                   <div class="contact">
