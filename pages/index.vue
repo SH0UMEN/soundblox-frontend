@@ -21,9 +21,9 @@
           <perfect-scrollbar class="content">
             <span class="content-section-title">Nos produits</span>
             <div class="content-top" v-if="products.products['filters']">
-              <main-select @input="filterProducts" v-model="products.filtersValues.utilization" :options="products.products['filters']['utilization']" class="select">Utilization</main-select>
-              <main-select @input="filterProducts" v-model="products.filtersValues.acoustic" :options="products.products['filters']['acoustic']" class="select">Acoutsic</main-select>
-              <main-select @input="filterProducts" v-model="products.filtersValues.thickness" :options="products.products['filters']['thickness']" class="select">Thickness</main-select>
+              <main-select @input="filterProducts" v-model="products.filtersValues.utilization" :options="products.products['filters']['utilization']" class="select">Utilisation</main-select>
+              <main-select @input="filterProducts" v-model="products.filtersValues.acoustic" :options="products.products['filters']['acoustic']" class="select">Acoustique</main-select>
+              <main-select @input="filterProducts" v-model="products.filtersValues.thickness" :options="products.products['filters']['thickness']" class="select">Épaisseur</main-select>
             </div>
             <div class="content-main">
               <span v-if="productLoading">Loading ...</span>
@@ -43,7 +43,7 @@
                     </div>
                   </div>
                   <div class="item-panel">
-                    <main-button class="item-panel-button" @click="moveTo('contacts');contactForm.productName = product.post_title" theme="light">Order</main-button>
+                    <main-button class="item-panel-button" @click="moveTo('contacts');contactForm.productName = product.post_title" theme="light">Commander</main-button>
                     <div class="item-panel-tags">
                       <add-button v-for="att in product.acf.attachments" type="link" :href="att.file" class="item-panel-tag">{{ att.label }}</add-button>
                     </div>
@@ -93,8 +93,8 @@
                       <span class="project-title">{{ references.refs['References'][references.curCategory][references.curProject].title }}</span>
                       <span class="project-desc">{{ references.refs['References'][references.curCategory][references.curProject].description }}</span>
                       <div class="project-switchers">
-                        <button @click="(references.curProject == 0) ? (references.curProject=references.refs['References'][references.curCategory].length-1) : (references.curProject--)">Prev</button>
-                        <button @click="(references.curProject == references.refs['References'][references.curCategory].length-1) ? (references.curProject=0) : (references.curProject++)">Next</button>
+                        <button @click="(references.curProject == 0) ? (references.curProject=references.refs['References'][references.curCategory].length-1) : (references.curProject--)">Précédent</button>
+                        <button @click="(references.curProject == references.refs['References'][references.curCategory].length-1) ? (references.curProject=0) : (references.curProject++)">Suivant</button>
                       </div>
                     </div>
                   </div>
@@ -108,21 +108,21 @@
 
         <section class="section news">
           <div class="section-title">
-            <span>Actualités</span>
+            <span>Nous suivre</span>
             <form class="subscribe" @submit.prevent="checkSubscribe">
               <div class="row">
                 <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
                 <main-button type="submit" theme="light">Souscrire</main-button>
               </div>
               <div class="row">
-                <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">Je suis d'accord avec les termes et les conditions</checkbox></no-ssr>
+                <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox"><span @click.prevent.stop="showInfo = true;moveTo('contacts')">Je suis d'accord avec les termes et les conditions</span></checkbox></no-ssr>
               </div>
             </form>
           </div>
           <perfect-scrollbar class="content">
-            <span class="content-section-title">Actualités</span>
+            <span class="content-section-title">Nous suivre</span>
             <div class="content-top">
-              <main-select @input="filterNews" v-model="curTag" :object="true" :options="news.tags" class="select">Categories</main-select>
+              <main-select @input="filterNews" v-model="curTag" :object="true" :options="news.tags" class="select">Catégories</main-select>
             </div>
             <div class="content-main">
               <span v-if="newsLoading">Loading ...</span>
@@ -144,7 +144,7 @@
                     </div>
                     <div class="row">
                       <no-ssr>
-                        <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox">Je suis d'accord avec les termes et les conditions</checkbox>
+                        <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox"><span @click.prevent.stop="showInfo = true;moveTo('contacts')">Je suis d'accord avec les termes et les conditions</span></checkbox>
                       </no-ssr>
                     </div>
                   </form>
@@ -155,12 +155,12 @@
         </section>
         <section class="section customer-opinion">
           <div class="section-title">
-            <span>Option<br>client</span>
+            <span>Avis<br>clients</span>
             <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Laisser un commentaire</main-button>
           </div>
           <perfect-scrollbar class="content without-title">
             <div class="content-section-title">
-              <span>Option client</span>
+              <span>Avis clients</span>
               <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Laisser un commentaire</main-button>
             </div>
             <div class="content-top">
@@ -195,7 +195,7 @@
         <section class="section contacts">
           <div class="section-title">
             Some text here © Soundblox. All rights reserved.
-            <span class="info" @click="showInfo = true">Information officielle</span>
+            <span class="info" @click="showInfo = true">Conditions générales</span>
             <div class="links">
               <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
               <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
@@ -230,29 +230,29 @@
                 </div>
                 <form @submit.prevent="" class="form">
                   <div class="col-3">
-                    <main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Sujet</main-select>
+                    <main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Objet</main-select>
                   </div>
                   <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.name" :error="contactFormErrors.name">Nom</text-input>
+                    <text-input class="t-input" placeholder="Entrez votre nom" v-model="contactForm.name" :error="contactFormErrors.name">Nom</text-input>
                   </div>
                   <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>
+                    <text-input class="t-input" placeholder="Entrez le nom de votre entreprise" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>
                   </div>
                   <div class="col-3">
                     <main-select placeholder="Sélectionner un produit" v-model="contactForm.productName" :options="productLabels">Nom de produit</main-select>
                   </div>
                   <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.email" :error="contactFormErrors.email">E-mail</text-input>
+                    <text-input class="t-input" placeholder="Entrez votre e-mail" v-model="contactForm.email" :error="contactFormErrors.email">E-mail</text-input>
                   </div>
                   <div class="col-3">
-                    <text-input class="t-input" v-model="contactForm.phone" :error="contactFormErrors.phone">Numéro de téléphone</text-input>
+                    <text-input class="t-input" placeholder="Entrez votre numéro de téléphone" v-model="contactForm.phone" :error="contactFormErrors.phone">Numéro de téléphone</text-input>
                   </div>
                   <div class="col-12">
                     <text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Entrez votre message ici">Message</text-input>
                   </div>
                   <no-ssr>
                     <div class="accept">
-                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept">Je suis d'accord avec les termes et les conditions</checkbox>
+                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept"><span @click.prevent.stop="showInfo = true">Je suis d'accord avec les termes et les conditions</span></checkbox>
                       <span class="accept-error" :class="{ 'hide': contactFormErrors.accept.length == 0 }">{{ contactFormErrors.accept }}</span>
                     </div>
                   </no-ssr>
@@ -406,9 +406,9 @@ export default {
         products: {
           products: res.data['Products'],
           filtersValues: {
-            utilization: 'Dont matter',
-            acoustic: 'Dont matter',
-            thickness: 'Dont matter'
+            utilization: 'Tous',
+            acoustic: 'Tous',
+            thickness: 'Tous'
           },
         },
         news: res.data['News'],
@@ -516,6 +516,12 @@ export default {
       this.$nextTick(this.fixHeight);
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    if(from.query['showInfo'] == true) {
+      this.showInfo = true;
+    }
+    next()
+  },
   methods: {
     // Log
 
@@ -572,7 +578,7 @@ export default {
       this.productLoaded = true;
 
       for(let k in filters) {
-        if(filters[k] != 'Dont matter') {
+        if(filters[k] != 'Tous') {
           query+='&'+k+'='+filters[k];
         }
       }

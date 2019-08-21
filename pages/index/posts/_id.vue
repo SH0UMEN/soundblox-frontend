@@ -8,7 +8,7 @@
         <span class="title">{{ news.title.rendered }}</span>
         <div class="content" v-html="news.content.rendered"></div>
         <div class="nav">
-          <span class="other">Other news</span>
+          <span class="other">Autres articles</span>
           <nuxt-link class="news-nav" :to="{ name: 'index-posts-id', params: { id: prev }}">
             <div @click="show = false" class="news-nav-inner">
               <span>

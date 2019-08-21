@@ -21,15 +21,15 @@
             <text-input :error="errors.email" v-model="email" placeholder="Entrer votre email">Email</text-input>
           </div>
           <div class="field">
-            <text-input :error="errors.message" v-model="message" type="text-area" placeholder="Entrez vos commentaires ici">Message</text-input>
+            <text-input :error="errors.message" v-model="message" type="text-area" placeholder="Entrez vos message ici">Message</text-input>
           </div>
           <no-ssr>
             <div class="accept">
-              <checkbox :fontSize="12" color="#3432FF" class="checkbox" v-model="accept">Je suis d'accord avec les termes et les conditions</checkbox>
+              <checkbox :fontSize="12" color="#3432FF" class="checkbox" v-model="accept"><span @click.prevent.stop="toInfo">Je suis d'accord avec les termes et les conditions</span></checkbox>
               <span class="accept-error" :class="{ 'hide': errors.accept.length == 0 }">{{ errors.accept }}</span>
             </div>
           </no-ssr>
-          <main-button class="confirm" @click="checkForm" theme="light">Confirmer</main-button>
+          <main-button class="confirm" @click="checkForm" theme="light">Envoyer</main-button>
         </form>
       </perfect-scrollbar>
     </div>
@@ -49,6 +49,7 @@
     },
     data() {
       return {
+        showInfo: false,
         name: '',
         enterprise: '',
         email: '',
@@ -72,7 +73,21 @@
       name: 'add-page',
       mode: 'out-in'
     },
+    beforeRouteLeave(to, from, next) {
+      if(this.showInfo){
+        from.query['showInfo'] = true
+      }
+      next();
+    },
     methods: {
+      moveTo(section) {
+        fullpage_api.moveTo(section, 0);
+      },
+      toInfo() {
+        this.showInfo = true;
+        this.moveTo('contacts');
+        this.$router.push({ name: 'index' });
+      },
       checkForm() {
         let emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             error = false;

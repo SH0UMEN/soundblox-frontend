@@ -1,7 +1,7 @@
 <template>
   <div class="add-page">
     <div class="content">
-      <nuxt-link class="back" :to="{ name: 'index' }">Close</nuxt-link>
+      <nuxt-link class="back" :to="{ name: 'index' }">Fermer</nuxt-link>
       <perfect-scrollbar class="scroll-content">
         <nuxt-child></nuxt-child>
       </perfect-scrollbar>

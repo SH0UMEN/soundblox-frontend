@@ -6,8 +6,8 @@
         <div class="content">
           <span class="title" :id="'title-slide-'+i">{{ slide.post_title }}</span>
           <div class="main-slider-nav">
-            <button :disabled="!prevActive" @click="prevSlide">prev</button>
-            <button :disabled="!nextActive" @click="nextSlide(true);">next</button>
+            <button :disabled="!prevActive" @click="prevSlide">Précédent</button>
+            <button :disabled="!nextActive" @click="nextSlide(true);">Suivant</button>
           </div>
           <div v-if="slide.acf.content" class="add-content">
             <span v-html="slide.acf.content"></span>
