@@ -518,8 +518,8 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     if(from.query['showInfo'] == true) {
-      this.showInfo = true;
       setTimeout(()=>{
+        this.showInfo = true;
         this.moveTo('contacts');
       }, 100);
     }
