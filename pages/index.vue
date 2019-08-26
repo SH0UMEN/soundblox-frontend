@@ -767,7 +767,7 @@ export default {
     },
 
     rebuild() {
-      fullpage_api.reBuild();
+      window.resize();
     },
 
     vhFix() {
