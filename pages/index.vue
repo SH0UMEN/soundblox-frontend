@@ -503,6 +503,7 @@ export default {
   watch: {
     isTablet() {
       if(this.isTablet == true) {
+        fullpage_api.setResponsive(true);
         setTimeout(this.headerControl, 1500);
       }
 
