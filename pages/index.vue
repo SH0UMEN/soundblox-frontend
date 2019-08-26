@@ -464,7 +464,7 @@ export default {
       this.vhFix();
       this.$nextTick(this.fixHeight);
 
-      console.log(window.innerHeight);
+      alert(window.innerHeight);
 
       if(window.innerWidth <= 1024) {
         this.isTablet = true;
