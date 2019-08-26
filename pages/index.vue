@@ -461,7 +461,6 @@ export default {
     }
 
     window.addEventListener('resize', ()=>{
-      this.vhFix();
       this.$nextTick(this.fixHeight);
 
       if(window.innerWidth <= 1024) {
