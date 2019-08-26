@@ -225,7 +225,7 @@
                   </div>
                   <div class="contact">
                     <span class="label">Adresse</span>
-                    <span class="value">{{ settings.adress }},</span>
+                    <span class="value">{{ settings.adress }}</span>
                   </div>
                 </div>
                 <form @submit.prevent="" class="form">
@@ -495,10 +495,6 @@ export default {
 
     this.partnersToRows();
     this.$nextTick(this.fixHeight);
-
-    // Fixing vh
-
-    this.vhFix();
   },
   watch: {
     isTablet() {
