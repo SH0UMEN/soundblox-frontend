@@ -767,7 +767,7 @@ export default {
     },
 
     rebuild() {
-      window.resize();
+      alert(window.innerHeight);
     },
 
     vhFix() {
