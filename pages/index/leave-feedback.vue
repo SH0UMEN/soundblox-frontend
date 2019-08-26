@@ -4,7 +4,7 @@
       <popup v-if="popup.isShown" :text="popup.text" :title="popup.title"></popup>
     </transition>
     <div class="content">
-      <nuxt-link class="back" :to="{ name: 'index' }">Close</nuxt-link>
+      <nuxt-link class="back" :to="{ name: 'index' }">Fermer</nuxt-link>
       <perfect-scrollbar class="scroll-content">
         <span class="title">Laisser un commentaire</span>
         <form @submit.prevent="">

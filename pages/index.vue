@@ -139,7 +139,7 @@
                 <div v-if="((i+1)%3 == 0 || i == news.news_rows.length-1) && isTablet" class="sub">
                   <form class="subscribe" @submit.prevent="checkSubscribe">
                     <div class="row">
-                      <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
+                      <text-input :error="subscribe.error" @focus="vhFix" @blur="vhFix" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
                       <main-button type="submit" theme="light">Subscribe</main-button>
                     </div>
                     <div class="row">
@@ -175,7 +175,7 @@
                   </div>
                 </div>
               </perfect-scrollbar>
-              <span class="title">Avis des clients</span>
+              <span class="title">Avis clients</span>
               <div class="feedbacks">
                 <div v-for="fb in feedbacks" class="feedback">
                   <div class="feedback-inner">
@@ -488,18 +488,6 @@ export default {
         onLeave: this.onLeave,
         animateAnchor: false
       });
-
-      let inputs = document.querySelectorAll("input[type='text']");
-
-      for(let input of inputs) {
-        input.addEventListener('focus', (e)=>{
-          fullpage_api.setAutoScrolling(false);
-        });
-
-        input.addEventListener('blur', (e)=>{
-          fullpage_api.setAutoScrolling(true);
-        });
-      }
 
       fullpage_api.setAllowScrolling(false);
       fullpage_api.setKeyboardScrolling(false);

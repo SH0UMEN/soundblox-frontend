@@ -2,8 +2,8 @@
   <label :class="{'error': error.length > 0}">
     <span class="error">{{ error }}</span>
     <span class="label"><slot></slot></span>
-    <input v-if="type == 'input'" @input="$emit('input', valueLocal)" v-model="valueLocal" :placeholder="placeholder" type="text">
-    <textarea v-else-if="type == 'text-area'" @input="$emit('input', valueLocal)" v-model="valueLocal" :placeholder="placeholder"></textarea>
+    <input v-if="type == 'input'" @focus="$emit('focus')" @blur="$emit('blur')" @input="$emit('input', valueLocal)" v-model="valueLocal" :placeholder="placeholder" type="text">
+    <textarea v-else-if="type == 'text-area'" @focus="$emit('focus')" @blur="$emit('blur')" @input="$emit('input', valueLocal)" v-model="valueLocal" :placeholder="placeholder"></textarea>
   </label>
 </template>
 
