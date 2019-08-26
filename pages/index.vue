@@ -461,6 +461,7 @@ export default {
     }
 
     window.addEventListener('resize', ()=>{
+      this.vhFix();
       this.$nextTick(this.fixHeight);
 
       if(window.innerWidth <= 1024) {
@@ -488,12 +489,28 @@ export default {
         animateAnchor: false
       });
 
+      let inputs = document.querySelectorAll("input[type='text']");
+
+      for(let input of inputs) {
+        input.addEventListener('focus', (e)=>{
+          fullpage_api.setAutoScrolling(false);
+        });
+
+        input.addEventListener('blur', (e)=>{
+          fullpage_api.setAutoScrolling(true);
+        });
+      }
+
       fullpage_api.setAllowScrolling(false);
       fullpage_api.setKeyboardScrolling(false);
     }, 500);
 
     this.partnersToRows();
     this.$nextTick(this.fixHeight);
+
+    // Fixing vh
+
+    this.vhFix();
   },
   watch: {
     isTablet() {
