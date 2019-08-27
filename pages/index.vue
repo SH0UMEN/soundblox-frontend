@@ -479,19 +479,19 @@ export default {
 
     this.newsToRows();
 
-    setTimeout(()=>{
-      new fullpage('#fullpage', {
-        anchors: ['main', 'our-products', 'our-references', 'news', 'customer-opinion', 'contacts'],
-        menu: 'nav.nav>ul',
-        normalScrollElements: '.section .content, .scroll-content',
-        afterRender: this.headerControl,
-        onLeave: this.onLeave,
-        animateAnchor: false
-      });
-
-      fullpage_api.setAllowScrolling(false);
-      fullpage_api.setKeyboardScrolling(false);
-    }, 500);
+    // setTimeout(()=>{
+    //   new fullpage('#fullpage', {
+    //     anchors: ['main', 'our-products', 'our-references', 'news', 'customer-opinion', 'contacts'],
+    //     menu: 'nav.nav>ul',
+    //     normalScrollElements: '.section .content, .scroll-content',
+    //     afterRender: this.headerControl,
+    //     onLeave: this.onLeave,
+    //     animateAnchor: false
+    //   });
+    //
+    //   fullpage_api.setAllowScrolling(false);
+    //   fullpage_api.setKeyboardScrolling(false);
+    // }, 500);
 
     this.partnersToRows();
     this.$nextTick(this.fixHeight);
@@ -767,9 +767,7 @@ export default {
     },
 
     inputFocused() {
-      setTimeout(()=>{
-        this.moveTo('news');
-      }, 500);
+
     },
 
     vhFix() {
