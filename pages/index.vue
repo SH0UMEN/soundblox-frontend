@@ -767,7 +767,10 @@ export default {
     },
 
     inputFocused() {
-
+      document.location.href = "#contacts";
+      setTimeout(()=>{
+        document.location.href = "#news";
+      }, 100);
     },
 
     vhFix() {
