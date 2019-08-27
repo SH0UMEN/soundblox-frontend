@@ -139,7 +139,7 @@
                 <div v-if="((i+1)%3 == 0 || i == news.news_rows.length-1) && isTablet" class="sub">
                   <form class="subscribe" @submit.prevent="checkSubscribe">
                     <div class="row">
-                      <text-input :error="subscribe.error" @focus="moveTo('contacts');moveTo('news')" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
+                      <text-input :error="subscribe.error" @focus="inputFocused" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
                       <main-button type="submit" theme="light">Subscribe</main-button>
                     </div>
                     <div class="row">
@@ -766,7 +766,10 @@ export default {
       fullpage_api.moveTo(section, 0);
     },
 
-    rebuild() {
+    inputFocused() {
+      setTimeout(()=>{
+        this.moveTo('main');
+      }, 500);
     },
 
     vhFix() {
