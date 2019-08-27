@@ -192,86 +192,86 @@
             </div>
           </perfect-scrollbar>
         </section>
-        <section class="section contacts">
-          <div class="section-title">
-            Some text here © Soundblox. All rights reserved.
-            <span class="info" @click="showInfo = true">Conditions générales</span>
-            <div class="links">
-              <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
-              <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
-            </div>
-          </div>
-          <transition-group name="contacts">
-            <perfect-scrollbar :key="1" v-show="showInfo" class="content info">
-              <div class="content-top">
-                <add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>
-              </div>
-              <div class="content-main">
-                <span class="title">{{ info.post_title }}</span>
-                <div class="info-content" v-html="info.post_content"></div>
-              </div>
-            </perfect-scrollbar>
-            <perfect-scrollbar :key="2" v-show="!showInfo" class="content without-title">
-              <div class="content-main">
-                <span class="title">Contacts</span>
-                <div class="contacts-list">
-                  <div class="contact">
-                    <span class="label">Numéro</span>
-                    <span class="value">{{ settings.phone }}</span>
-                  </div>
-                  <div class="contact">
-                    <span class="label">E-mail</span>
-                    <span class="value">{{ settings.email }}</span>
-                  </div>
-                  <div class="contact">
-                    <span class="label">Adresse</span>
-                    <span class="value">{{ settings.adress }}</span>
-                  </div>
-                </div>
-                <form @submit.prevent="" class="form">
-                  <div class="col-3">
-                    <main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Objet</main-select>
-                  </div>
-                  <div class="col-3">
-                    <text-input class="t-input" placeholder="Entrez votre nom" v-model="contactForm.name" :error="contactFormErrors.name">Nom</text-input>
-                  </div>
-                  <div class="col-3">
-                    <text-input class="t-input" placeholder="Entrez le nom de votre entreprise" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>
-                  </div>
-                  <div class="col-3">
-                    <main-select placeholder="Sélectionner un produit" v-model="contactForm.productName" :options="productLabels">Nom de produit</main-select>
-                  </div>
-                  <div class="col-3">
-                    <text-input class="t-input" placeholder="Entrez votre e-mail" v-model="contactForm.email" :error="contactFormErrors.email">E-mail</text-input>
-                  </div>
-                  <div class="col-3">
-                    <text-input class="t-input" placeholder="Entrez votre numéro de téléphone" v-model="contactForm.phone" :error="contactFormErrors.phone">Numéro de téléphone</text-input>
-                  </div>
-                  <div class="col-12">
-                    <text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Entrez votre message ici">Message</text-input>
-                  </div>
-                  <no-ssr>
-                    <div class="accept">
-                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept"><span @click.prevent.stop="showInfo = true">Je suis d'accord avec les termes et les conditions</span></checkbox>
-                      <span class="accept-error" :class="{ 'hide': contactFormErrors.accept.length == 0 }">{{ contactFormErrors.accept }}</span>
-                    </div>
-                  </no-ssr>
-                  <main-button class="confirm" theme="light" @click="checkContactForm">Confirmer</main-button>
-                </form>
-                <div class="section-title section-title-dub">
-                  <div class="left">
-                    Some text here © Soundblox. All rights reserved.
-                    <span class="info" @click="showInfo = true">Information officielle</span>
-                  </div>
-                  <div class="links">
-                    <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
-                    <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
-                  </div>
-                </div>
-              </div>
-            </perfect-scrollbar>
-          </transition-group>
-        </section>
+        <!--<section class="section contacts">-->
+          <!--<div class="section-title">-->
+            <!--Some text here © Soundblox. All rights reserved.-->
+            <!--<span class="info" @click="showInfo = true">Conditions générales</span>-->
+            <!--<div class="links">-->
+              <!--<add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>-->
+              <!--<add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<transition-group name="contacts">-->
+            <!--<perfect-scrollbar :key="1" v-show="showInfo" class="content info">-->
+              <!--<div class="content-top">-->
+                <!--<add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>-->
+              <!--</div>-->
+              <!--<div class="content-main">-->
+                <!--<span class="title">{{ info.post_title }}</span>-->
+                <!--<div class="info-content" v-html="info.post_content"></div>-->
+              <!--</div>-->
+            <!--</perfect-scrollbar>-->
+            <!--<perfect-scrollbar :key="2" v-show="!showInfo" class="content without-title">-->
+              <!--<div class="content-main">-->
+                <!--<span class="title">Contacts</span>-->
+                <!--<div class="contacts-list">-->
+                  <!--<div class="contact">-->
+                    <!--<span class="label">Numéro</span>-->
+                    <!--<span class="value">{{ settings.phone }}</span>-->
+                  <!--</div>-->
+                  <!--<div class="contact">-->
+                    <!--<span class="label">E-mail</span>-->
+                    <!--<span class="value">{{ settings.email }}</span>-->
+                  <!--</div>-->
+                  <!--<div class="contact">-->
+                    <!--<span class="label">Adresse</span>-->
+                    <!--<span class="value">{{ settings.adress }}</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<form @submit.prevent="" class="form">-->
+                  <!--<div class="col-3">-->
+                    <!--<main-select :preselected-first="true" v-model="contactForm.topic" :options="topics">Objet</main-select>-->
+                  <!--</div>-->
+                  <!--<div class="col-3">-->
+                    <!--<text-input class="t-input" placeholder="Entrez votre nom" v-model="contactForm.name" :error="contactFormErrors.name">Nom</text-input>-->
+                  <!--</div>-->
+                  <!--<div class="col-3">-->
+                    <!--<text-input class="t-input" placeholder="Entrez le nom de votre entreprise" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>-->
+                  <!--</div>-->
+                  <!--<div class="col-3">-->
+                    <!--<main-select placeholder="Sélectionner un produit" v-model="contactForm.productName" :options="productLabels">Nom de produit</main-select>-->
+                  <!--</div>-->
+                  <!--<div class="col-3">-->
+                    <!--<text-input class="t-input" placeholder="Entrez votre e-mail" v-model="contactForm.email" :error="contactFormErrors.email">E-mail</text-input>-->
+                  <!--</div>-->
+                  <!--<div class="col-3">-->
+                    <!--<text-input class="t-input" placeholder="Entrez votre numéro de téléphone" v-model="contactForm.phone" :error="contactFormErrors.phone">Numéro de téléphone</text-input>-->
+                  <!--</div>-->
+                  <!--<div class="col-12">-->
+                    <!--<text-input class="t-input ta" type="text-area" v-model="contactForm.message" placeholder="Entrez votre message ici">Message</text-input>-->
+                  <!--</div>-->
+                  <!--<no-ssr>-->
+                    <!--<div class="accept">-->
+                      <!--<checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept"><span @click.prevent.stop="showInfo = true">Je suis d'accord avec les termes et les conditions</span></checkbox>-->
+                      <!--<span class="accept-error" :class="{ 'hide': contactFormErrors.accept.length == 0 }">{{ contactFormErrors.accept }}</span>-->
+                    <!--</div>-->
+                  <!--</no-ssr>-->
+                  <!--<main-button class="confirm" theme="light" @click="checkContactForm">Confirmer</main-button>-->
+                <!--</form>-->
+                <!--<div class="section-title section-title-dub">-->
+                  <!--<div class="left">-->
+                    <!--Some text here © Soundblox. All rights reserved.-->
+                    <!--<span class="info" @click="showInfo = true">Information officielle</span>-->
+                  <!--</div>-->
+                  <!--<div class="links">-->
+                    <!--<add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>-->
+                    <!--<add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</perfect-scrollbar>-->
+          <!--</transition-group>-->
+        <!--</section>-->
       </div>
     </main>
     <script src="/libs/fullpage.min.js"></script>
