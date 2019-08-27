@@ -7,7 +7,7 @@
         <img v-if="news.better_featured_image" class="thumbnail" :src="news.better_featured_image.source_url" alt="">
         <span class="title">{{ news.title.rendered }}</span>
         <div class="content" v-html="news.content.rendered"></div>
-        <div class="nav">
+        <div v-if="prev && next" class="nav">
           <span class="other">Autres articles</span>
           <nuxt-link class="news-nav" :to="{ name: 'index-posts-id', params: { id: prev }}">
             <div @click="show = false" class="news-nav-inner">

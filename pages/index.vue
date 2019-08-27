@@ -88,7 +88,7 @@
                     </div>
                     <div v-if="references.refs['References'][references.curCategory][references.curProject]" class="control-panel">
                       <span class="project-counter">
-                        <span class="pr">Projects</span>{{ references.curProject+1 }}/{{ references.refs['References'][references.curCategory].length }}
+                        <span class="pr">Projets</span>{{ references.curProject+1 }}/{{ references.refs['References'][references.curCategory].length }}
                       </span>
                       <span class="project-title">{{ references.refs['References'][references.curCategory][references.curProject].title }}</span>
                       <span class="project-desc">{{ references.refs['References'][references.curCategory][references.curProject].description }}</span>
@@ -139,7 +139,7 @@
                 <div v-if="((i+1)%3 == 0 || i == news.news_rows.length-1) && isTablet" class="sub">
                   <form class="subscribe" @submit.prevent="checkSubscribe">
                     <div class="row">
-                      <text-input :error="subscribe.error" @focus="inputFocused" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
+                      <text-input :error="subscribe.error" :placeholder="subscribe.placeholder" v-model="subscribe.email" class="email">Souscrire</text-input>
                       <main-button type="submit" theme="light">Subscribe</main-button>
                     </div>
                     <div class="row">
@@ -764,13 +764,6 @@ export default {
 
     moveTo(section) {
       fullpage_api.moveTo(section, 0);
-    },
-
-    inputFocused() {
-      document.location.href = "#contacts";
-      setTimeout(()=>{
-        document.location.href = "#news";
-      }, 500);
     },
 
     vhFix() {
