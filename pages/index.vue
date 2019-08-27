@@ -768,7 +768,7 @@ export default {
 
     inputFocused() {
       setTimeout(()=>{
-        this.moveTo('main');
+        this.moveTo('news');
       }, 500);
     },
 
