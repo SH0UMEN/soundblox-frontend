@@ -204,7 +204,7 @@
           <transition-group name="contacts">
             <perfect-scrollbar :key="1" v-show="showInfo" class="content info">
               <div class="content-top">
-                <add-button class="back-btn" @click="showInfo = false">Back to contact page</add-button>
+                <add-button class="back-btn" @click="showInfo = false">Retour à la page de contact</add-button>
               </div>
               <div class="content-main">
                 <span class="title">{{ info.post_title }}</span>
