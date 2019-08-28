@@ -25,7 +25,7 @@
           </div>
           <no-ssr>
             <div class="accept">
-              <checkbox :fontSize="12" color="#3432FF" class="checkbox" v-model="accept"><span @click.prevent.stop="toInfo">Je suis d'accord avec les termes et les conditions</span></checkbox>
+              <checkbox :fontSize="12" color="#3432FF" class="checkbox" v-model="accept"><span @click.prevent.stop="toInfo">Je suis d'accord avec les Termes et conditions de SoundBlox.</span></checkbox>
               <span class="accept-error" :class="{ 'hide': errors.accept.length == 0 }">{{ errors.accept }}</span>
             </div>
           </no-ssr>

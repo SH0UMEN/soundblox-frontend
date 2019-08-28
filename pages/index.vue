@@ -115,7 +115,7 @@
                 <main-button type="submit" theme="light">Souscrire</main-button>
               </div>
               <div class="row">
-                <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox"><span @click.prevent.stop="showInfo = true;moveTo('contacts')">Je suis d'accord avec les termes et les conditions</span></checkbox></no-ssr>
+                <no-ssr><checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox"><span @click.prevent.stop="showInfo = true;moveTo('contacts')">Je suis d'accord avec les Termes et conditions de SoundBlox.</span></checkbox></no-ssr>
               </div>
             </form>
           </div>
@@ -144,7 +144,7 @@
                     </div>
                     <div class="row">
                       <no-ssr>
-                        <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox"><span @click.prevent.stop="showInfo = true;moveTo('contacts')">Je suis d'accord avec les termes et les conditions</span></checkbox>
+                        <checkbox v-model="subscribe.accept" color="#3432FF" class="checkbox"><span @click.prevent.stop="showInfo = true;moveTo('contacts')">Je suis d'accord avec les Termes et conditions de SoundBlox.</span></checkbox>
                       </no-ssr>
                     </div>
                   </form>
@@ -252,7 +252,7 @@
                   </div>
                   <no-ssr>
                     <div class="accept">
-                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept"><span @click.prevent.stop="showInfo = true">Je suis d'accord avec les termes et les conditions</span></checkbox>
+                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept"><span @click.prevent.stop="showInfo = true">Je suis d'accord avec les Termes et conditions de SoundBlox.</span></checkbox>
                       <span class="accept-error" :class="{ 'hide': contactFormErrors.accept.length == 0 }">{{ contactFormErrors.accept }}</span>
                     </div>
                   </no-ssr>
