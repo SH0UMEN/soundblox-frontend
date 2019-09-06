@@ -155,12 +155,12 @@
         </section>
         <section class="section customer-opinion">
           <div class="section-title">
-            <span>Avis<br>clients</span>
+            <span>Témoignages</span>
             <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Laisser un commentaire</main-button>
           </div>
           <perfect-scrollbar class="content without-title">
             <div class="content-section-title">
-              <span>Avis clients</span>
+              <span>Témoignages</span>
               <main-button class="to-feedback" tag="link" :to="{ name: 'index-leave-feedback' }" theme="light">Laisser un commentaire</main-button>
             </div>
             <div class="content-top">
@@ -175,7 +175,7 @@
                   </div>
                 </div>
               </perfect-scrollbar>
-              <span class="title">Avis clients</span>
+              <span class="title">Témoignages</span>
               <div class="feedbacks">
                 <div v-for="fb in feedbacks" class="feedback">
                   <div class="feedback-inner">
@@ -194,8 +194,8 @@
         </section>
         <section class="section contacts">
           <div class="section-title">
-            Some text here © Soundblox. All rights reserved.
-            <span class="info" @click="showInfo = true">Conditions générales</span>
+            Effacer © Soundblox. Tous droits réservés
+            <span class="info" @click="showInfo = true">Politique de confidentialité</span>
             <div class="links">
               <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
               <add-button class="link" type="link" :href="settings.facebook">Facebook</add-button>
@@ -213,10 +213,10 @@
             </perfect-scrollbar>
             <perfect-scrollbar :key="2" v-show="!showInfo" class="content without-title">
               <div class="content-main">
-                <span class="title">Contacts</span>
+                <span class="title">Contactez-nous</span>
                 <div class="contacts-list">
                   <div class="contact">
-                    <span class="label">Numéro</span>
+                    <span class="label">Téléphone</span>
                     <span class="value">{{ settings.phone }}</span>
                   </div>
                   <div class="contact">
@@ -236,7 +236,7 @@
                     <text-input class="t-input" placeholder="Entrez votre nom" v-model="contactForm.name" :error="contactFormErrors.name">Nom</text-input>
                   </div>
                   <div class="col-3">
-                    <text-input class="t-input" placeholder="Entrez le nom de votre entreprise" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Enterprise</text-input>
+                    <text-input class="t-input" placeholder="Entrez le nom de votre entreprise" v-model="contactForm.enterprise" :error="contactFormErrors.enterprise">Entreprise</text-input>
                   </div>
                   <div class="col-3">
                     <main-select placeholder="Sélectionner un produit" v-model="contactForm.productName" :options="productLabels">Nom de produit</main-select>
@@ -252,7 +252,7 @@
                   </div>
                   <no-ssr>
                     <div class="accept">
-                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept"><span @click.prevent.stop="showInfo = true">Je suis d'accord avec les Termes et conditions de SoundBlox.</span></checkbox>
+                      <checkbox class="checkbox" color="#3432FF" v-model="contactForm.accept"><span @click.prevent.stop="showInfo = true">Je suis d'accord avec la politique de confidentialité</span></checkbox>
                       <span class="accept-error" :class="{ 'hide': contactFormErrors.accept.length == 0 }">{{ contactFormErrors.accept }}</span>
                     </div>
                   </no-ssr>
@@ -260,8 +260,8 @@
                 </form>
                 <div class="section-title section-title-dub">
                   <div class="left">
-                    Some text here © Soundblox. All rights reserved.
-                    <span class="info" @click="showInfo = true">Information officielle</span>
+                    Effacer © Soundblox. Tous droits réservés
+                    <span class="info" @click="showInfo = true">Politique de confidentialité</span>
                   </div>
                   <div class="links">
                     <add-button class="link" type="link" :href="settings.linkedin">Linkedin</add-button>
@@ -402,6 +402,7 @@ export default {
   },
   asyncData({ $axios }) {
     return $axios.get('api/?action=init').then((res)=>{
+      console.log(res.data);
       let result = {
         products: {
           products: res.data['Products'],

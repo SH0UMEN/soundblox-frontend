@@ -33,8 +33,8 @@
         <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="our-products"><a href="#our-products">Nos produits</a></li>
         <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="our-references"><a href="#our-references">Nos références</a></li>
         <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="news"><a href="#news">Blog</a></li>
-        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="customer-opinion"><a href="#customer-opinion">Avis clients</a></li>
-        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="contacts"><a href="#contacts">Contacts</a></li>
+        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="customer-opinion"><a href="#customer-opinion">Témoignages</a></li>
+        <li @click="navOpened = false;$router.push({ name: 'index' })" data-menuanchor="contacts"><a href="#contacts">Contact</a></li>
       </ul>
       <div class="links">
         <add-button class="link" type="link" theme="dark" :href="links.linkedin">linkedin</add-button>
